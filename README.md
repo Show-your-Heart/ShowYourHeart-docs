@@ -1,4 +1,3 @@
-<img width="1458" alt="image" src="https://github.com/user-attachments/assets/05dd4bcc-0986-40b0-9dd1-aa01fdc0fe52"># showyourheart
 Official repository for the collaborative development of Show your Heart, an open-source, web-based, model-driven impact measurement tool, meant for networks of social enterprises and their members. The technoloy is compliant with the openESEA standard for ESG accounting. The software development project is global and open-source. 
 
 The active participants are the following, grouped by categories based on the main role they play.
