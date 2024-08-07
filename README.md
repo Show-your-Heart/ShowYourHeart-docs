@@ -18,14 +18,13 @@ Software developers:
 - **amoved** - artesanía digital https://amoved.es Our mission is to promote technological sovereignty, helping social enterprises, neighborhood businesses, collectives and associations to build their digital infrastructure and transition towards the use of free, collectivized and self-managed digital tools.
 - **Codi Coop** https://codi.coop/en We make the development of web applications a close, simple and clear process. In our decisions and in the way we work we constantly try to break away from the mindset of valuing people by their productivity.
 
+Earlier participants:
+- **Jamgo** SCCL https://jamgo.coop We are a technological cooperative. We design and develop everything from advanced applications to web pages, as well as all kinds of customized technology solutions. We operate with democratic and fair criteria and transparency is one of our main values.
+
 The project has received funding from several entities:
 - **Scentiss**, an NWO-funded project named "Boosting social and community-driven entrepreneurship for the transition to an inclusive and sustainable society." It is composed of a Dutch research consortium working on scaling strategies and strong ecosystems for social and community-driven entrepreneurs (SCEs).
 - **XES - Xarxa d’Economia Solidaria**, who originally started the project and led the development the first version of the tool.
 - **REAS - Red de Redes de Economía Alternativa y Solidaria**, who supported the project after adopting the tool and offering it to all their members.
-
-Earlier participants:
-- **Jamgo** SCCL https://jamgo.coop We are a technological cooperative. We design and develop everything from advanced applications to web pages, as well as all kinds of customized technology solutions. We operate with democratic and fair criteria and transparency is one of our main values.
-
 
 
 
