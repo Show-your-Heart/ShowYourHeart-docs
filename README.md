@@ -26,6 +26,16 @@ The project has received funding from several entities:
 - **XES - Xarxa d’Economia Solidaria**, who originally started the project and led the development the first version of the tool.
 - **REAS - Red de Redes de Economía Alternativa y Solidaria**, who supported the project after adopting the tool and offering it to all their members.
 
+The main principles guiding the tool development are
+- They are open-source tools, to facilitate collaboration and make them part of the Commons.
+- They are web-based tools, offered as-a-service, to facilitate adoption and management.
+- They are developed through a close collaboration between academia and industry.
+- We distinguish methods (e.g. ways of working, specific prescriptions of indicators)from tools (i.e. the software that supports one or more methods)
+- The tools are configurable, to make them adaptable and uncoupled from specific methods.
+- We aim to develop tools that support as many methods as possible.
+- The tools need to be compliant with the regulations that affect them.
+- The tools need to be usable and accessible.
+
 
 
 
