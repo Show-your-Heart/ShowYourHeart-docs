@@ -4,7 +4,7 @@ about: A user story is implemented as well as it is communicated. If the context
   the goals are made clear, it will be easier for everyone to implement it, test it,
   refer to it…
 title: ''
-labels: ''
+labels: User Story
 assignees: ''
 
 ---
