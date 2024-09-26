@@ -1,5 +1,38 @@
+# Readme file
+
+## Introduction 
 Global documentation and project management of Show your Heart, an open-source, web-based, model-driven impact measurement tool, meant for networks of social enterprises and their members. The technoloy is compliant with the openESEA standard for ESG accounting. The software development project is global and open-source. The tool has an ample user-base in Spain since 2014 and we are expanding it to the Netherlands during 2024-2025.
 
+## Background about Show your Heart
+
+This section is based on the following report: OECD/European Union (2024), Measure, Manage and Maximise Your Impact: A Guide for the Social Economy, Local Economic
+and Employment Development (LEED), OECD Publishing, Paris, https://doi.org/10.1787/2238c1f1-en
+
+“Show your Heart” is an impact measurement software that supports several environmental, social and governance (ESG) accounting methods.  
+Show your Heart is known by other names other languages:
+- Enseña el Corazón in Castilian Spanish (Castellano)
+- Ensenya el Cor in Catalan (Català)
+- Bihotza Erakutsi in Basque (Euskera)
+- Ensina o corazón in Galician (Galego)
+
+It was developed by the Catalan Network of Solidarity Economy (Xarxa d’Economia Solidària de Catalunya [XES]) in 2008 to help members self-assess their commitment to social economy values. By 2016, the solution had been adopted by the Spanish Network of Networks of Alternative and Solidarity Economy (Red de Redes de Economía Alternativa y Solidaria [REAS]) and hence scaled up to the whole national territory. It enables social cooperatives and other legally recognised social enterprises to assess and improve their social and environmental impact, as well as their governance practices.
+
+The “Show your Heart” platform offers 13 sectoral or regional modules or user pathways, allowing adaptation to the entity’s profile (e.g. social cooperatives, social enterprises, non-profits, urban commons), as well as its local and socio-economic context (e.g. specific methods developed by some regional networks within REAS). Each module typically consists of a set of ESG topics, with associated key impact performance indicators and surveys for data collection. All modules share a common set of basic indicators, reflecting the core values of the social economy.
+
+As an example, the Social Balance (Balanç Social) module is expected to be applied annually by XES members, but is open and free for any organisation to use. Besides economic and environmental performance, it covers topics like:
+
+- Social commitments: purchase of goods and services from other social economy entities; production of goods, services or materials that are made available at no cost; promotion of
+functional diversity and social inclusion.
+- Workplace quality: active measures to promote workplace health and improve work-life balance beyond legal obligations; internal policies improving on the conditions stipulated by collective labour agreements; encouraging the training of workers; ensuring the availability spaces for workers’ emotional and physical care.
+- Democracy and equity: worker demographics (average age, disability rate, gender disaggregation of management, executive and political positions); participation in the preparation and approval of the management plan and annual budget; online publication of the “Social Balance report”; gap between the highest and lowest remunerations; disclosure of wages to workers; use of non-sexist and inclusive language; adoption, monitoring and evaluation of an equality plan; existence of a protocol for the prevention and handling of sexual harassment
+
+The data are collected through surveys addressed to organisational managers or, where available, impact measurement leads. The platform also allows deploying stakeholder surveys, which can elicit subjective assessments from workers and business partners. The Social Balance has two variants: a brief version featuring 80 indicators and the complete version (including stakeholder surveys) featuring 200 indicators. Entities with an overall score equal to or greater than four out of ten can download an automatically generated infographic and impact report.
+
+A state-wide, bottom-up, democratic process was followed to agree on a core set of 70 indicators that are common to all ESG accounting methods. These core indicators facilitate the creation of aggregated reports that analyse data from all organisations within the same network at the regional or country level, which in turn demonstrates the overall performance of the social economy and its inherently value-driven behaviour. For instance, they help highlight the low pay gaps and the gender-balance ratios in the sector, and then compare them to the conventional Spanish economy. Thematic reports are also sometimes issued on specific topics (e.g. environmental sustainability, the feminist economy).
+
+Around 700 social economy entities throughout Spain use the online platform every year. “Show your Heart” is licensed as open-source software, and its dissemination is supported by freely available guides and reports. In collaboration with other social economy networks, the tool is being piloted in the Netherlands, with additional opportunities for transposition abroad in the medium term.
+
+## Active participants
 The active participants are the following, grouped by categories based on the main role they play.
 
 User representatives:
@@ -21,11 +54,13 @@ Software developers:
 Earlier participants:
 - **Jamgo** SCCL https://jamgo.coop We are a technological cooperative. We design and develop everything from advanced applications to web pages, as well as all kinds of customized technology solutions. We operate with democratic and fair criteria and transparency is one of our main values.
 
+## Funding
 The project has received funding from several entities:
 - **Scentiss**, an NWO-funded project named "Boosting social and community-driven entrepreneurship for the transition to an inclusive and sustainable society." It is composed of a Dutch research consortium working on scaling strategies and strong ecosystems for social and community-driven entrepreneurs (SCEs).
 - **XES - Xarxa d’Economia Solidaria**, who originally started the project and led the development the first version of the tool.
 - **REAS - Red de Redes de Economía Alternativa y Solidaria**, who supported the project after adopting the tool and offering it to all their members.
 
+## Principles for tool development
 The main principles guiding the tool development are
 - They are open-source tools, to facilitate collaboration and make them part of the Commons.
 - They are web-based tools, offered as-a-service, to facilitate adoption and management.
