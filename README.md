@@ -3,8 +3,10 @@ https://app.diagrams.net/#Hjgraph%2Fdrawio-github%2Fmaster%2Fdiagram.png
 https://github.com/jgraph/drawio-github/blob/master/diagram.png
 
 
+https://app.diagrams.net/#HShow-your-Heart%2Fdrawio-github%2Fmaster%2Fdiagram.png
 
-https://app.diagrams.net/#HShow-your-Heart%2main%2FShowYourHeart%2FXES-SB.svg
+---->
+https://app.diagrams.net/#HShow-your-Heart%2FShowYourHeart%2Fmain%2FXES-SB.svg
 
 https://github.com/Show-your-Heart/ShowYourHeart/blob/main/XES-SB.svg
 
