@@ -1,20 +1,10 @@
 # Readme file
-https://app.diagrams.net/#Hjgraph%2Fdrawio-github%2Fmaster%2Fdiagram.png
-https://github.com/jgraph/drawio-github/blob/master/diagram.png
 
 
-https://app.diagrams.net/#HShow-your-Heart%2Fdrawio-github%2Fmaster%2Fdiagram.png
-
----->
-https://app.diagrams.net/#HShow-your-Heart%2FShowYourHeart%2Fmain%2FXES-SB.svg
-
-https://github.com/Show-your-Heart/ShowYourHeart/blob/main/XES-SB.svg
-
-https://github.com/Show-your-Heart/ShowYourHeart/blob/main/README.md
 
 
-![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](XES-SB.svg)
-
+![Process deliverable diagram of the Show your Heart.](XES-SB.svg)
+[Edit model in draw.io](https://app.diagrams.net/#HShow-your-Heart%2FShowYourHeart%2Fmain%2FXES-SB.svg)
 
 ## Introduction 
 Global documentation and project management of Show your Heart, an open-source, web-based, model-driven impact measurement tool, meant for networks of social enterprises and their members. The technoloy is compliant with the openESEA standard for ESG accounting. The software development project is global and open-source. The tool has an ample user-base in Spain since 2014 and we are expanding it to the Netherlands during 2024-2025.
