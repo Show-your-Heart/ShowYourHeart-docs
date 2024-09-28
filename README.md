@@ -1,6 +1,6 @@
 # Readme file
 
-![Process deliverable diagram of the Show your Heart.](XES-SB.svg)
+![Process deliverable diagram of the Show your Heart.](XES-SB.svg?ver=12)
 [Edit model in draw.io](https://app.diagrams.net/#HShow-your-Heart%2FShowYourHeart%2Fmain%2FXES-SB.svg)
 
 ## Introduction 
