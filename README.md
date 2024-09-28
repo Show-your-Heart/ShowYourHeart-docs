@@ -1,6 +1,10 @@
+<meta http-equiv='cache-control' content='no-cache'> 
+<meta http-equiv='expires' content='0'> 
+<meta http-equiv='pragma' content='no-cache'>
+
 # Readme file
 
-![Process deliverable diagram of the Show your Heart.](XES-SB.svg?ver=12)
+![Process deliverable diagram of the Show your Heart.](XES-SB.svg?)
 [Edit model in draw.io](https://app.diagrams.net/#HShow-your-Heart%2FShowYourHeart%2Fmain%2FXES-SB.svg)
 
 ## Introduction 
