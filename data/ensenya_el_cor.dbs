@@ -1,0 +1,2423 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="MariaDb" id="MariaDb-1d1" database="MariaDb" >
+	<schema name="SYH" >
+		<table name="BATCH_JOB_EXECUTION" row_count="8" spec="" >
+			<column name="JOB_EXECUTION_ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="VERSION" type="BIGINT" length="20" jt="-5" />
+			<column name="JOB_INSTANCE_ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="CREATE_TIME" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA[current_timestamp()]]></defo>
+				<column_options><![CDATA[ON UPDATE current_timestamp]]></column_options>
+			</column>
+			<column name="START_TIME" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA['0000-00-00 00:00:00']]></defo>
+			</column>
+			<column name="END_TIME" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA['0000-00-00 00:00:00']]></defo>
+			</column>
+			<column name="STATUS" type="VARCHAR" length="10" jt="12" />
+			<column name="EXIT_CODE" type="VARCHAR" length="20" jt="12" />
+			<column name="EXIT_MESSAGE" type="VARCHAR" length="2500" jt="12" />
+			<column name="LAST_UPDATED" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA['0000-00-00 00:00:00']]></defo>
+			</column>
+			<column name="JOB_CONFIGURATION_LOCATION" type="VARCHAR" length="2500" jt="12" />
+			<index name="pk_batch_job_execution" unique="PRIMARY_KEY" >
+				<column name="JOB_EXECUTION_ID" />
+			</index>
+			<index name="JOB_INSTANCE_EXECUTION_FK" unique="NORMAL" >
+				<column name="JOB_INSTANCE_ID" />
+			</index>
+			<fk name="JOB_INSTANCE_EXECUTION_FK" to_schema="SYH" to_table="BATCH_JOB_INSTANCE" options="" >
+				<fk_column name="JOB_INSTANCE_ID" pk="JOB_INSTANCE_ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="BATCH_JOB_EXECUTION_CONTEXT" row_count="8" spec="" >
+			<column name="JOB_EXECUTION_ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="SHORT_CONTEXT" type="VARCHAR" length="2500" jt="12" mandatory="y" />
+			<column name="SERIALIZED_CONTEXT" type="BLOB" jt="2004" />
+			<index name="pk_batch_job_execution_context" unique="PRIMARY_KEY" >
+				<column name="JOB_EXECUTION_ID" />
+			</index>
+			<fk name="JOB_EXEC_CTX_FK" to_schema="SYH" to_table="BATCH_JOB_EXECUTION" options="" >
+				<fk_column name="JOB_EXECUTION_ID" pk="JOB_EXECUTION_ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="BATCH_JOB_EXECUTION_PARAMS" row_count="0" spec="" >
+			<column name="JOB_EXECUTION_ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="TYPE_CD" type="VARCHAR" length="6" jt="12" mandatory="y" />
+			<column name="KEY_NAME" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="STRING_VAL" type="VARCHAR" length="250" jt="12" />
+			<column name="DATE_VAL" type="DATETIME" jt="93" />
+			<column name="LONG_VAL" type="BIGINT" length="20" jt="-5" />
+			<column name="DOUBLE_VAL" type="DOUBLE" jt="8" />
+			<column name="IDENTIFYING" type="CHAR" length="1" jt="1" mandatory="y" />
+			<index name="JOB_EXEC_PARAMS_FK" unique="NORMAL" >
+				<column name="JOB_EXECUTION_ID" />
+			</index>
+			<fk name="JOB_EXEC_PARAMS_FK" to_schema="SYH" to_table="BATCH_JOB_EXECUTION" options="" >
+				<fk_column name="JOB_EXECUTION_ID" pk="JOB_EXECUTION_ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="BATCH_JOB_EXECUTION_SEQ" row_count="0" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="BATCH_JOB_INSTANCE" row_count="3" spec="" >
+			<column name="JOB_INSTANCE_ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="VERSION" type="BIGINT" length="20" jt="-5" />
+			<column name="JOB_NAME" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="JOB_KEY" type="VARCHAR" length="2500" jt="12" />
+			<index name="pk_batch_job_instance" unique="PRIMARY_KEY" >
+				<column name="JOB_INSTANCE_ID" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="BATCH_JOB_SEQ" row_count="0" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="BATCH_STEP_EXECUTION" row_count="8" spec="" >
+			<column name="STEP_EXECUTION_ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="VERSION" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="STEP_NAME" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="JOB_EXECUTION_ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="START_TIME" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA[current_timestamp()]]></defo>
+				<column_options><![CDATA[ON UPDATE current_timestamp]]></column_options>
+			</column>
+			<column name="END_TIME" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA['0000-00-00 00:00:00']]></defo>
+			</column>
+			<column name="STATUS" type="VARCHAR" length="10" jt="12" />
+			<column name="COMMIT_COUNT" type="BIGINT" length="20" jt="-5" />
+			<column name="READ_COUNT" type="BIGINT" length="20" jt="-5" />
+			<column name="FILTER_COUNT" type="BIGINT" length="20" jt="-5" />
+			<column name="WRITE_COUNT" type="BIGINT" length="20" jt="-5" />
+			<column name="READ_SKIP_COUNT" type="BIGINT" length="20" jt="-5" />
+			<column name="WRITE_SKIP_COUNT" type="BIGINT" length="20" jt="-5" />
+			<column name="PROCESS_SKIP_COUNT" type="BIGINT" length="20" jt="-5" />
+			<column name="ROLLBACK_COUNT" type="BIGINT" length="20" jt="-5" />
+			<column name="EXIT_CODE" type="VARCHAR" length="20" jt="12" />
+			<column name="EXIT_MESSAGE" type="VARCHAR" length="2500" jt="12" />
+			<column name="LAST_UPDATED" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA['0000-00-00 00:00:00']]></defo>
+			</column>
+			<index name="pk_batch_step_execution" unique="PRIMARY_KEY" >
+				<column name="STEP_EXECUTION_ID" />
+			</index>
+			<index name="JOB_EXECUTION_STEP_FK" unique="NORMAL" >
+				<column name="JOB_EXECUTION_ID" />
+			</index>
+			<fk name="JOB_EXECUTION_STEP_FK" to_schema="SYH" to_table="BATCH_JOB_EXECUTION" options="" >
+				<fk_column name="JOB_EXECUTION_ID" pk="JOB_EXECUTION_ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="BATCH_STEP_EXECUTION_CONTEXT" row_count="8" spec="" >
+			<column name="STEP_EXECUTION_ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="SHORT_CONTEXT" type="VARCHAR" length="2500" jt="12" mandatory="y" />
+			<column name="SERIALIZED_CONTEXT" type="BLOB" jt="2004" />
+			<index name="pk_batch_step_execution_context" unique="PRIMARY_KEY" >
+				<column name="STEP_EXECUTION_ID" />
+			</index>
+			<fk name="STEP_EXEC_CTX_FK" to_schema="SYH" to_table="BATCH_STEP_EXECUTION" options="" >
+				<fk_column name="STEP_EXECUTION_ID" pk="STEP_EXECUTION_ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="BATCH_STEP_EXECUTION_SEQ" row_count="0" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="acl" row_count="220" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="read_permission" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[false]]></defo>
+			</column>
+			<column name="role_id" type="BIGINT" length="20" jt="-5" />
+			<column name="user_id" type="BIGINT" length="20" jt="-5" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="write_permission" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[false]]></defo>
+			</column>
+			<column name="secured_object_id" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_acl" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="UN_ACL" unique="UNIQUE_KEY" >
+				<column name="role_id" />
+				<column name="user_id" />
+				<column name="secured_object_id" />
+			</index>
+			<index name="FK_acl_secured_object_id" unique="NORMAL" >
+				<column name="secured_object_id" />
+			</index>
+			<fk name="FK_acl_secured_object_id" to_schema="SYH" to_table="secured_object" options="" >
+				<fk_column name="secured_object_id" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="action_scope" row_count="21" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="VERSION" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="NAME" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<index name="pk_action_scope" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="answers" row_count="1231194" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="fixed_value" type="VARCHAR" length="255" jt="12" />
+			<column name="value" type="VARCHAR" length="5000" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_campaign" type="BIGINT" length="20" jt="-5" />
+			<column name="id_email" type="BIGINT" length="20" jt="-5" />
+			<column name="id_entity" type="BIGINT" length="20" jt="-5" />
+			<column name="id_question" type="BIGINT" length="20" jt="-5" />
+			<column name="id_last_answer" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_answers" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_answers_id_campaign" unique="NORMAL" >
+				<column name="id_campaign" />
+			</index>
+			<index name="FK_answers_id_email" unique="NORMAL" >
+				<column name="id_email" />
+			</index>
+			<index name="FK_answers_id_entity" unique="NORMAL" >
+				<column name="id_entity" />
+			</index>
+			<index name="FK_answers_id_question" unique="NORMAL" >
+				<column name="id_question" />
+			</index>
+			<index name="FK_answers_id_last_answer" unique="NORMAL" >
+				<column name="id_last_answer" />
+			</index>
+			<fk name="FK_answers_id_campaign" to_schema="SYH" to_table="campaigns" options="" >
+				<fk_column name="id_campaign" pk="ID" />
+			</fk>
+			<fk name="FK_answers_id_email" to_schema="SYH" to_table="emails" options="" >
+				<fk_column name="id_email" pk="ID" />
+			</fk>
+			<fk name="FK_answers_id_last_answer" to_schema="SYH" to_table="answers" options="" >
+				<fk_column name="id_last_answer" pk="ID" />
+			</fk>
+			<fk name="FK_answers_id_question" to_schema="SYH" to_table="questions" options="" >
+				<fk_column name="id_question" pk="ID" />
+			</fk>
+			<fk name="FK_evaluable_answer" to_schema="SYH" to_table="evaluable" options="" >
+				<fk_column name="id_entity" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="answers_20220902" row_count="824785" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" />
+			<column name="fixed_value" type="VARCHAR" length="255" jt="12" />
+			<column name="value" type="VARCHAR" length="5000" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_campaign" type="BIGINT" length="20" jt="-5" />
+			<column name="id_email" type="BIGINT" length="20" jt="-5" />
+			<column name="id_entity" type="BIGINT" length="20" jt="-5" />
+			<column name="id_question" type="BIGINT" length="20" jt="-5" />
+			<column name="id_last_answer" type="BIGINT" length="20" jt="-5" />
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="association_autonomous_community" row_count="182" spec="" >
+			<column name="id_association" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_autonomous_community" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_association_autonomous_community" unique="PRIMARY_KEY" >
+				<column name="id_association" />
+				<column name="id_autonomous_community" />
+			</index>
+			<index name="association_autonomous_community_autonomous_community_FK" unique="NORMAL" >
+				<column name="id_autonomous_community" />
+			</index>
+			<fk name="association_autonomous_community_associations_FK" to_schema="SYH" to_table="associations" options="" >
+				<fk_column name="id_association" pk="ID" />
+			</fk>
+			<fk name="association_autonomous_community_autonomous_community_FK" to_schema="SYH" to_table="autonomous_community" options="" >
+				<fk_column name="id_autonomous_community" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="associations" row_count="76" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="description" type="VARCHAR" length="255" jt="12" />
+			<column name="name" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="type" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<index name="pk_associations" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="autonomous_community" row_count="19" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="name" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_autonomous_community" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="binary_resource" row_count="822" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="timestamp" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA[current_timestamp()]]></defo>
+				<column_options><![CDATA[ON UPDATE current_timestamp]]></column_options>
+			</column>
+			<column name="description" type="VARCHAR" length="100" jt="12" />
+			<column name="mime_type" type="VARCHAR" length="100" jt="12" />
+			<column name="file_name" type="VARCHAR" length="100" jt="12" />
+			<column name="file_length" type="BIGINT" length="20" jt="-5" />
+			<column name="contents" type="LONGBLOB" jt="-4" />
+			<index name="pk_binary_resource" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="campaign_policy_acceptance_entity" row_count="6262" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_campaign" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_entity" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_policy_acceptance_document" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="acceptance_date" type="TIMESTAMP" jt="93" mandatory="y" >
+				<defo><![CDATA[current_timestamp()]]></defo>
+				<column_options><![CDATA[ON UPDATE current_timestamp]]></column_options>
+			</column>
+			<column name="document" type="LONGBLOB" jt="-4" />
+			<index name="pk_campaign_policy_acceptance_entity" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="campaign_policy_acceptance_entity_UN" unique="UNIQUE_KEY" >
+				<column name="id_campaign" />
+				<column name="id_entity" />
+				<column name="id_policy_acceptance_document" />
+			</index>
+			<index name="campaign_policy_acceptance_entity_FK_1" unique="NORMAL" >
+				<column name="id_entity" />
+			</index>
+			<index name="campaign_policy_acceptance_entity_FK_2" unique="NORMAL" >
+				<column name="id_policy_acceptance_document" />
+			</index>
+			<fk name="campaign_policy_acceptance_entity_FK" to_schema="SYH" to_table="campaigns" options="" >
+				<fk_column name="id_campaign" pk="ID" />
+			</fk>
+			<fk name="campaign_policy_acceptance_entity_FK_1" to_schema="SYH" to_table="entities" options="" >
+				<fk_column name="id_entity" pk="ID" />
+			</fk>
+			<fk name="campaign_policy_acceptance_entity_FK_2" to_schema="SYH" to_table="policy_acceptance_document" options="" >
+				<fk_column name="id_policy_acceptance_document" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="campaigns" row_count="13" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="ACTIVE" type="TINYINT" length="4" jt="-6" />
+			<column name="end_date" type="DATE" jt="91" />
+			<column name="start_date" type="DATE" jt="91" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_previous_campaign" type="BIGINT" length="20" jt="-5" />
+			<column name="name" type="VARCHAR" length="1000" jt="12" />
+			<column name="year" type="INT" length="11" jt="4" mandatory="y" />
+			<index name="pk_campaigns" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_campaigns_id_previous_campaign" unique="NORMAL" >
+				<column name="id_previous_campaign" />
+			</index>
+			<fk name="FK_campaigns_id_previous_campaign" to_schema="SYH" to_table="campaigns" options="" >
+				<fk_column name="id_previous_campaign" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="compromise_documents" row_count="5" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="CONTENT" type="LONGBLOB" jt="-4" />
+			<column name="DESCRIPTION" type="VARCHAR" length="255" jt="12" />
+			<column name="NAME" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_compromise" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_compromise_documents" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_compromise_documents_id_compromise" unique="NORMAL" >
+				<column name="id_compromise" />
+			</index>
+			<fk name="FK_compromise_documents_id_compromise" to_schema="SYH" to_table="compromises" options="" >
+				<fk_column name="id_compromise" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="compromises" row_count="294" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="ACHIEVED" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[false]]></defo>
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR" length="1000" jt="12" />
+			<column name="external_valoration" type="INT" length="11" jt="4" />
+			<column name="self_valoration" type="INT" length="11" jt="4" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_stamp" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_compromises" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_compromises_id_stamp" unique="NORMAL" >
+				<column name="id_stamp" />
+			</index>
+			<fk name="FK_compromises_id_stamp" to_schema="SYH" to_table="stamps" options="" >
+				<fk_column name="id_stamp" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="conditional_questions" row_count="15010" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="question_formula" type="VARCHAR" length="255" jt="12" />
+			<column name="id_legal_form" type="BIGINT" length="20" jt="-5" />
+			<column name="QUESTION_KEY" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="DECIMAL" length="10" decimal="0" jt="3" />
+			<index name="pk_conditional_questions" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="UNQ_conditional_questions_0" unique="UNIQUE_KEY" >
+				<column name="id_legal_form" />
+				<column name="question_formula" />
+			</index>
+			<index name="FK_conditional_questions_id_legal_form" unique="NORMAL" >
+				<column name="id_legal_form" />
+			</index>
+			<fk name="FK_conditional_questions_id_legal_form" to_schema="SYH" to_table="legal_forms" options="" >
+				<fk_column name="id_legal_form" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="configuration" row_count="689" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="name" type="VARCHAR" length="500" jt="12" />
+			<column name="label" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="type" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<index name="pk_configuration" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="configuration_social_agent" row_count="941" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="value" type="VARCHAR" length="100" jt="12" />
+			<column name="id_configuration" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_social_agent" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_configuration_social_agent" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="social_agent_configuration_UN" unique="UNIQUE_KEY" >
+				<column name="id_configuration" />
+				<column name="id_social_agent" />
+			</index>
+			<index name="social_agent_configuration_social_agent_FK" unique="NORMAL" >
+				<column name="id_social_agent" />
+			</index>
+			<fk name="social_agent_configuration_config_FK" to_schema="SYH" to_table="configuration" options="" >
+				<fk_column name="id_configuration" pk="id" />
+			</fk>
+			<fk name="social_agent_configuration_social_agent_FK" to_schema="SYH" to_table="social_agent" options="" >
+				<fk_column name="id_social_agent" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="contact_types" row_count="6" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="NAME" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_contact_types" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="contacts" row_count="39955" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="ACTIVE" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[true]]></defo>
+			</column>
+			<column name="EMAIL" type="VARCHAR" length="255" jt="12" />
+			<column name="HASH" type="VARCHAR" length="255" jt="12" />
+			<column name="NAME" type="VARCHAR" length="255" jt="12" />
+			<column name="SURNAME" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_entity" type="BIGINT" length="20" jt="-5" />
+			<column name="id_language" type="BIGINT" length="20" jt="-5" />
+			<column name="id_contact_type" type="BIGINT" length="20" jt="-5" />
+			<column name="gender" type="VARCHAR" length="100" jt="12" />
+			<index name="pk_contacts" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_contacts_id_contact_type" unique="NORMAL" >
+				<column name="id_contact_type" />
+			</index>
+			<index name="FK_contacts_id_language" unique="NORMAL" >
+				<column name="id_language" />
+			</index>
+			<index name="FK_contacts_id_entity" unique="NORMAL" >
+				<column name="id_entity" />
+			</index>
+			<fk name="FK_contacts_evaluable" to_schema="SYH" to_table="evaluable" options="" >
+				<fk_column name="id_entity" pk="ID" />
+			</fk>
+			<fk name="FK_contacts_id_contact_type" to_schema="SYH" to_table="contact_types" options="" >
+				<fk_column name="id_contact_type" pk="ID" />
+			</fk>
+			<fk name="FK_contacts_id_language" to_schema="SYH" to_table="language" options="" >
+				<fk_column name="id_language" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="custom_list" row_count="164" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="name" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="other_enabled" type="TINYINT" length="4" jt="-6" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<index name="pk_custom_list" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="custom_list_item" row_count="1110" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="name" type="VARCHAR" length="1000" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_custom_list" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="active" type="VARCHAR" length="100" jt="12" mandatory="y" >
+				<defo><![CDATA['1']]></defo>
+			</column>
+			<column name="value" type="BIGINT" length="20" jt="-5" />
+			<column name="position" type="INT" length="11" jt="4" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<index name="pk_custom_list_item" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="custom_list_item_custom_list_FK" unique="NORMAL" >
+				<column name="id_custom_list" />
+			</index>
+			<fk name="custom_list_item_custom_list_FK" to_schema="SYH" to_table="custom_list" options="" >
+				<fk_column name="id_custom_list" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="district" row_count="10" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="name" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="id_town" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_district" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="district_FK" unique="NORMAL" >
+				<column name="id_town" />
+			</index>
+			<fk name="district_FK" to_schema="SYH" to_table="towns" options="" >
+				<fk_column name="id_town" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="emails" row_count="54038" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="answer_date" type="DATE" jt="91" />
+			<column name="send_date" type="DATE" jt="91" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_contact" type="BIGINT" length="20" jt="-5" />
+			<column name="CAMPAIGN_ID" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_emails" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_emails_id_contact" unique="NORMAL" >
+				<column name="id_contact" />
+			</index>
+			<index name="FK_emails_CAMPAIGN_ID" unique="NORMAL" >
+				<column name="CAMPAIGN_ID" />
+			</index>
+			<fk name="FK_emails_CAMPAIGN_ID" to_schema="SYH" to_table="campaigns" options="" >
+				<fk_column name="CAMPAIGN_ID" pk="ID" />
+			</fk>
+			<fk name="FK_emails_id_contact" to_schema="SYH" to_table="contacts" options="" >
+				<fk_column name="id_contact" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="entities" row_count="2400" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="active" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[false]]></defo>
+			</column>
+			<column name="ADDRESS" type="VARCHAR" length="255" jt="12" />
+			<column name="bs_allow_final" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[false]]></defo>
+			</column>
+			<column name="bs_allow_public" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[false]]></defo>
+			</column>
+			<column name="code" type="VARCHAR" length="255" jt="12" />
+			<column name="CP" type="VARCHAR" length="255" jt="12" />
+			<column name="description" type="VARCHAR" length="5000" jt="12" />
+			<column name="EMAIL" type="VARCHAR" length="255" jt="12" />
+			<column name="name" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="NIF" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="other_town" type="VARCHAR" length="255" jt="12" />
+			<column name="PHONE" type="VARCHAR" length="255" jt="12" />
+			<column name="bs_registry_request_date" type="DATE" jt="91" />
+			<column name="bs_registry_resolution_date" type="DATE" jt="91" />
+			<column name="shortname" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="WEB" type="VARCHAR" length="255" jt="12" />
+			<column name="CREATIONYEAR" type="VARCHAR" length="255" jt="12" />
+			<column name="id_legal_form" type="BIGINT" length="20" jt="-5" />
+			<column name="id_sector" type="BIGINT" length="20" jt="-5" />
+			<column name="id_bs_state" type="BIGINT" length="20" jt="-5" />
+			<column name="id_town" type="BIGINT" length="20" jt="-5" />
+			<column name="PROVINCE_ID" type="BIGINT" length="20" jt="-5" />
+			<column name="REGION_ID" type="BIGINT" length="20" jt="-5" />
+			<column name="logo" type="LONGBLOB" jt="-4" />
+			<column name="pamapam_url" type="VARCHAR" length="100" jt="12" />
+			<column name="allow_xes_info" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[false]]></defo>
+			</column>
+			<column name="partner_number" type="DECIMAL" length="10" decimal="0" jt="3" />
+			<column name="xes_description" type="VARCHAR" length="1000" jt="12" />
+			<column name="xes_registry_request_date" type="DATE" jt="91" />
+			<column name="xes_registry_resolution_date" type="DATE" jt="91" />
+			<column name="id_xes_state" type="BIGINT" length="20" jt="-5" />
+			<column name="bank_account_owner" type="VARCHAR" length="255" jt="12" />
+			<column name="bank_account_iban" type="VARCHAR" length="100" jt="12" />
+			<column name="administration_contact" type="VARCHAR" length="100" jt="12" />
+			<column name="xes_collaborator" type="TINYINT" length="4" jt="-6" />
+			<column name="id_user" type="BIGINT" length="20" jt="-5" />
+			<column name="id_autonomous_community" type="BIGINT" length="20" jt="-5" />
+			<column name="transversal" type="TINYINT" length="4" jt="-6" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="id_secondary_sector" type="BIGINT" length="20" jt="-5" />
+			<column name="social_objective" type="TINYINT" length="4" jt="-6" />
+			<column name="evaluate_project" type="TINYINT" length="4" jt="-6" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="xes_active" type="TINYINT" length="4" jt="-6" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="hosting_policit_accepted" type="TINYINT" length="4" jt="-6" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="id_neighbourhood" type="BIGINT" length="20" jt="-5" />
+			<column name="facebook" type="VARCHAR" length="100" jt="12" />
+			<column name="instagram" type="VARCHAR" length="100" jt="12" />
+			<column name="twitter" type="VARCHAR" length="100" jt="12" />
+			<column name="is_xes" type="TINYINT" length="4" jt="-6" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="latitude" type="VARCHAR" length="100" jt="12" />
+			<column name="longitude" type="VARCHAR" length="100" jt="12" />
+			<column name="free_text_associations" type="TEXT" jt="-1" />
+			<index name="pk_entities" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="entities_UN" unique="UNIQUE_KEY" >
+				<column name="NIF" />
+				<column name="id_autonomous_community" />
+			</index>
+			<index name="FK_entities_id_town" unique="NORMAL" >
+				<column name="id_town" />
+			</index>
+			<index name="FK_entities_id_legal_form" unique="NORMAL" >
+				<column name="id_legal_form" />
+			</index>
+			<index name="FK_entities_id_state" unique="NORMAL" >
+				<column name="id_bs_state" />
+			</index>
+			<index name="FK_entities_PROVINCE_ID" unique="NORMAL" >
+				<column name="PROVINCE_ID" />
+			</index>
+			<index name="FK_entities_REGION_ID" unique="NORMAL" >
+				<column name="REGION_ID" />
+			</index>
+			<index name="FK_entities_id_sector" unique="NORMAL" >
+				<column name="id_sector" />
+			</index>
+			<index name="FK_entities_entity_state_xes" unique="NORMAL" >
+				<column name="id_xes_state" />
+			</index>
+			<index name="FK_entities_user" unique="NORMAL" >
+				<column name="id_user" />
+			</index>
+			<index name="entities_autonomous_community_FK" unique="NORMAL" >
+				<column name="id_autonomous_community" />
+			</index>
+			<index name="entities_sectors_FK" unique="NORMAL" >
+				<column name="id_secondary_sector" />
+			</index>
+			<index name="entities_FK" unique="NORMAL" >
+				<column name="id_neighbourhood" />
+			</index>
+			<fk name="FK_entities_PROVINCE_ID" to_schema="SYH" to_table="provinces" options="" >
+				<fk_column name="PROVINCE_ID" pk="ID" />
+			</fk>
+			<fk name="FK_entities_REGION_ID" to_schema="SYH" to_table="regions" options="" >
+				<fk_column name="REGION_ID" pk="ID" />
+			</fk>
+			<fk name="FK_entities_entity_state" to_schema="SYH" to_table="entity_state" options="" >
+				<fk_column name="id_bs_state" pk="ID" />
+			</fk>
+			<fk name="FK_entities_entity_state_xes" to_schema="SYH" to_table="entity_state" options="" >
+				<fk_column name="id_xes_state" pk="ID" />
+			</fk>
+			<fk name="FK_entities_id_legal_form" to_schema="SYH" to_table="legal_forms" options="" >
+				<fk_column name="id_legal_form" pk="ID" />
+			</fk>
+			<fk name="FK_entities_id_sector" to_schema="SYH" to_table="sectors" options="" >
+				<fk_column name="id_sector" pk="ID" />
+			</fk>
+			<fk name="FK_entities_id_town" to_schema="SYH" to_table="towns" options="" >
+				<fk_column name="id_town" pk="ID" />
+			</fk>
+			<fk name="FK_entities_user" to_schema="SYH" to_table="user" options="" >
+				<fk_column name="id_user" pk="ID" />
+			</fk>
+			<fk name="entities_FK" to_schema="SYH" to_table="neighbourhood" options="" >
+				<fk_column name="id_neighbourhood" pk="id" />
+			</fk>
+			<fk name="entities_autonomous_community_FK" to_schema="SYH" to_table="autonomous_community" options="" >
+				<fk_column name="id_autonomous_community" pk="ID" />
+			</fk>
+			<fk name="entities_sectors_FK" to_schema="SYH" to_table="sectors" options="" >
+				<fk_column name="id_secondary_sector" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="entity_module" row_count="15943" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_module" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_entity" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="state" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="registry_request_date" type="DATE" jt="91" />
+			<column name="registry_resolution_date" type="DATE" jt="91" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_entity_module" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="entity_module_UN" unique="UNIQUE_KEY" >
+				<column name="id_module" />
+				<column name="id_entity" />
+			</index>
+			<index name="entity_module_FK" unique="NORMAL" >
+				<column name="id_entity" />
+			</index>
+			<fk name="entity_module_FK" to_schema="SYH" to_table="entities" options="" >
+				<fk_column name="id_entity" pk="ID" />
+			</fk>
+			<fk name="entity_module_FK_1" to_schema="SYH" to_table="modules" options="" >
+				<fk_column name="id_module" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="entity_module_info" row_count="5413" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="answers_count" type="INT" length="11" jt="4" />
+			<column name="closed_date" type="DATE" jt="91" />
+			<column name="questions_count" type="INT" length="11" jt="4" />
+			<column name="revision_date" type="DATE" jt="91" />
+			<column name="stamp_date" type="DATE" jt="91" />
+			<column name="start_date" type="DATE" jt="91" />
+			<column name="STATE" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_entity" type="BIGINT" length="20" jt="-5" />
+			<column name="id_module" type="BIGINT" length="20" jt="-5" />
+			<column name="technical_revision_date" type="DATE" jt="91" />
+			<column name="resume" type="VARCHAR" length="5000" jt="12" />
+			<column name="id_campaign" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_entity_module_info" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="UNQ_entities_modules_0" unique="UNIQUE_KEY" >
+				<column name="id_entity" />
+				<column name="id_module" />
+			</index>
+			<index name="FK_entities_modules_id_module" unique="NORMAL" >
+				<column name="id_module" />
+			</index>
+			<index name="entity_module_info_FK" unique="NORMAL" >
+				<column name="id_campaign" />
+			</index>
+			<fk name="FK_entity_module_info_01" to_schema="SYH" to_table="modules" options="" >
+				<fk_column name="id_module" pk="ID" />
+			</fk>
+			<fk name="FK_entity_module_info_02" to_schema="SYH" to_table="evaluable" options="" >
+				<fk_column name="id_entity" pk="ID" />
+			</fk>
+			<fk name="FK_entity_module_info_03" to_schema="SYH" to_table="campaigns" options="" >
+				<fk_column name="id_campaign" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="entity_state" row_count="4" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="NAME" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_entity_state" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="evaluable" row_count="2626" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="VERSION" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="ID_EVALUABLE_TYPE" type="BIGINT" length="20" jt="-5" >
+				<defo><![CDATA[1]]></defo>
+			</column>
+			<index name="pk_evaluable" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_evaluable_type_evaluable" unique="NORMAL" >
+				<column name="ID_EVALUABLE_TYPE" />
+			</index>
+			<fk name="FK_evaluable_type_evaluable" to_schema="SYH" to_table="evaluable_type" options="" >
+				<fk_column name="ID_EVALUABLE_TYPE" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="evaluable_type" row_count="2" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="VERSION" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="NAME" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<index name="pk_evaluable_type" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="form_blocks" row_count="639" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_campaign" type="BIGINT" length="20" jt="-5" />
+			<column name="ID_PARENT" type="BIGINT" length="20" jt="-5" />
+			<column name="name" type="VARCHAR" length="1000" jt="12" />
+			<column name="description" type="VARCHAR" length="1000" jt="12" />
+			<index name="pk_form_blocks" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_form_blocks_ID_PARENT" unique="NORMAL" >
+				<column name="ID_PARENT" />
+			</index>
+			<index name="FK_form_blocks_id_campaign" unique="NORMAL" >
+				<column name="id_campaign" />
+			</index>
+			<fk name="FK_form_blocks_ID_PARENT" to_schema="SYH" to_table="form_blocks" options="" >
+				<fk_column name="ID_PARENT" pk="ID" />
+			</fk>
+			<fk name="FK_form_blocks_id_campaign" to_schema="SYH" to_table="campaigns" options="" >
+				<fk_column name="id_campaign" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="form_documents" row_count="2203" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="CONTENT" type="LONGBLOB" jt="-4" />
+			<column name="DESCRIPTION" type="VARCHAR" length="255" jt="12" />
+			<column name="NAME" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_entity" type="BIGINT" length="20" jt="-5" />
+			<column name="id_form_block" type="BIGINT" length="20" jt="-5" />
+			<column name="id_module" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_form_documents" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_form_documents_id_form_block" unique="NORMAL" >
+				<column name="id_form_block" />
+			</index>
+			<index name="FK_form_documents_id_entity" unique="NORMAL" >
+				<column name="id_entity" />
+			</index>
+			<fk name="FK_evaluable_form_document" to_schema="SYH" to_table="evaluable" options="" >
+				<fk_column name="id_entity" pk="ID" />
+			</fk>
+			<fk name="FK_form_documents_id_form_block" to_schema="SYH" to_table="form_blocks" options="" >
+				<fk_column name="id_form_block" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="indicator_average_value" row_count="2232" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_social_agent" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_indicator" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="value" type="VARCHAR" length="100" jt="12" />
+			<index name="pk_indicator_average_value" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="indicator_average_value_UN" unique="UNIQUE_KEY" >
+				<column name="id_social_agent" />
+				<column name="id_indicator" />
+			</index>
+			<index name="indicator_average_value_FK" unique="NORMAL" >
+				<column name="id_indicator" />
+			</index>
+			<fk name="indicator_average_value_FK" to_schema="SYH" to_table="indicators" options="" >
+				<fk_column name="id_indicator" pk="ID" />
+			</fk>
+			<fk name="indicator_average_value_FK_1" to_schema="SYH" to_table="social_agent" options="" >
+				<fk_column name="id_social_agent" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="indicator_value" row_count="734373" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_indicator" type="BIGINT" length="20" jt="-5" />
+			<column name="id_module_info" type="BIGINT" length="20" jt="-5" />
+			<column name="value" type="VARCHAR" length="255" jt="12" />
+			<index name="indicator_value_UN" unique="UNIQUE_KEY" >
+				<column name="id_indicator" />
+				<column name="id_module_info" />
+			</index>
+			<index name="indicator_value_entities_modules_FK" unique="NORMAL" >
+				<column name="id_module_info" />
+			</index>
+			<fk name="indicator_value_entities_modules_FK" to_schema="SYH" to_table="entity_module_info" options="" >
+				<fk_column name="id_module_info" pk="ID" />
+			</fk>
+			<fk name="indicator_value_indicators_FK" to_schema="SYH" to_table="indicators" options="" >
+				<fk_column name="id_indicator" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="indicators" row_count="3835" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="FORMULA" type="VARCHAR" length="255" jt="12" />
+			<column name="INDICATOR_KEY" type="VARCHAR" length="255" jt="12" />
+			<column name="last_average_value" type="VARCHAR" length="255" jt="12" />
+			<column name="UNIT" type="VARCHAR" length="255" jt="12" />
+			<column name="value_type" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_campaign" type="BIGINT" length="20" jt="-5" />
+			<column name="id_question" type="BIGINT" length="20" jt="-5" />
+			<column name="show_average" type="BOOLEAN" jt="-7" />
+			<column name="id_ponderation_indicator" type="BIGINT" length="20" jt="-5" />
+			<column name="name" type="VARCHAR" length="10000" jt="12" />
+			<column name="description" type="VARCHAR" length="10000" jt="12" />
+			<column name="is_auxiliar" type="TINYINT" length="4" jt="-6" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<index name="pk_indicators" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="UNQ_indicators_0" unique="UNIQUE_KEY" >
+				<column name="ID" />
+				<column name="INDICATOR_KEY" />
+			</index>
+			<index name="FK_indicators_id_question" unique="NORMAL" >
+				<column name="id_question" />
+			</index>
+			<index name="FK_indicators_id_campaign" unique="NORMAL" >
+				<column name="id_campaign" />
+			</index>
+			<fk name="FK_indicators_id_campaign" to_schema="SYH" to_table="campaigns" options="" >
+				<fk_column name="id_campaign" pk="ID" />
+			</fk>
+			<fk name="FK_indicators_id_question" to_schema="SYH" to_table="questions" options="" >
+				<fk_column name="id_question" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="indicators_indicators" row_count="1118" spec="" >
+			<column name="id_indicator" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_indicator_dep" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_indicators_indicators" unique="PRIMARY_KEY" >
+				<column name="id_indicator" />
+				<column name="id_indicator_dep" />
+			</index>
+			<index name="FK_indicators_indicators_id_indicator_dep" unique="NORMAL" >
+				<column name="id_indicator_dep" />
+			</index>
+			<fk name="FK_indicators_indicators_id_indicator" to_schema="SYH" to_table="indicators" options="" >
+				<fk_column name="id_indicator" pk="ID" />
+			</fk>
+			<fk name="FK_indicators_indicators_id_indicator_dep" to_schema="SYH" to_table="indicators" options="" >
+				<fk_column name="id_indicator_dep" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="language" row_count="4" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="NAME" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="language_code" type="VARCHAR" length="5" jt="12" />
+			<column name="country_code" type="VARCHAR" length="5" jt="12" />
+			<column name="default_language" type="BOOLEAN" jt="-7" />
+			<column name="active" type="TINYINT" length="4" jt="-6" >
+				<defo><![CDATA[1]]></defo>
+			</column>
+			<index name="pk_language" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="legal_forms" row_count="37" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_parent" type="BIGINT" length="20" jt="-5" />
+			<column name="name" type="VARCHAR" length="1000" jt="12" />
+			<index name="pk_legal_forms" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_legal_forms_id_parent" unique="NORMAL" >
+				<column name="id_parent" />
+			</index>
+			<fk name="FK_legal_forms_id_parent" to_schema="SYH" to_table="legal_forms" options="" >
+				<fk_column name="id_parent" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="localized_message" row_count="0" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="DECIMAL" length="10" decimal="0" jt="3" />
+			<column name="message_key" type="VARCHAR" length="500" jt="12" />
+			<column name="message_value" type="VARCHAR" length="1000" jt="12" />
+			<column name="description" type="VARCHAR" length="5000" jt="12" />
+			<column name="id_language" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="parameters_info" type="VARCHAR" length="1000" jt="12" />
+			<index name="pk_localized_message" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="localized_message_FK" unique="NORMAL" >
+				<column name="id_language" />
+			</index>
+			<fk name="localized_message_FK" to_schema="SYH" to_table="language" options="" >
+				<fk_column name="id_language" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="membership" row_count="3381" spec="" >
+			<column name="id_entity" type="BIGINT" length="20" jt="-5" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="id_association" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_membership" unique="PRIMARY_KEY" >
+				<column name="id_entity" />
+				<column name="id_association" />
+			</index>
+			<index name="FK_membership_id_association" unique="NORMAL" >
+				<column name="id_association" />
+			</index>
+			<fk name="FK_membership_id_association" to_schema="SYH" to_table="associations" options="" >
+				<fk_column name="id_association" pk="ID" />
+			</fk>
+			<fk name="FK_membership_id_entity" to_schema="SYH" to_table="entities" options="" >
+				<fk_column name="id_entity" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="module_document_configuration" row_count="350" spec="" >
+			<column name="id_module_state_config" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_tipus_document" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="MODULE_DOCUMENT_CONFIGURATION_UN" unique="UNIQUE_KEY" >
+				<column name="id_module_state_config" />
+				<column name="id_tipus_document" />
+			</index>
+			<index name="TIPUS_DOCUMENT_CONFIG_FK" unique="NORMAL" >
+				<column name="id_tipus_document" />
+			</index>
+			<fk name="MODULE_STATE_CONFIGURATION_F" to_schema="SYH" to_table="module_state_configuration" options="" >
+				<fk_column name="id_module_state_config" pk="id" />
+			</fk>
+			<fk name="TIPUS_DOCUMENT_CONFIG_FK" to_schema="SYH" to_table="tipus_document" options="" >
+				<fk_column name="id_tipus_document" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="module_form_block" row_count="4442" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_module" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_form_block" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_parent" type="BIGINT" length="20" jt="-5" />
+			<column name="form_block_index" type="INT" length="11" jt="4" />
+			<index name="pk_module_form_block" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="module_form_block_UN" unique="UNIQUE_KEY" >
+				<column name="id_module" />
+				<column name="id_form_block" />
+			</index>
+			<index name="module_form_block_form_blocks_FK" unique="NORMAL" >
+				<column name="id_form_block" />
+			</index>
+			<index name="module_form_block_parent_FK" unique="NORMAL" >
+				<column name="id_parent" />
+			</index>
+			<fk name="module_form_block_form_blocks_FK" to_schema="SYH" to_table="form_blocks" options="" >
+				<fk_column name="id_form_block" pk="ID" />
+			</fk>
+			<fk name="module_form_block_modules_FK" to_schema="SYH" to_table="modules" options="" >
+				<fk_column name="id_module" pk="ID" />
+			</fk>
+			<fk name="module_form_block_parent_FK" to_schema="SYH" to_table="module_form_block" options="" >
+				<fk_column name="id_parent" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="module_form_block_question" row_count="12469" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_module_form_block" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="question_index" type="DECIMAL" length="10" decimal="0" jt="3" mandatory="y" />
+			<column name="id_question" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="module_form_block_question_module_form_block_FK" unique="NORMAL" >
+				<column name="id_module_form_block" />
+			</index>
+			<index name="module_form_block_question_questions_FK" unique="NORMAL" >
+				<column name="id_question" />
+			</index>
+			<fk name="module_form_block_question_module_form_block_FK" to_schema="SYH" to_table="module_form_block" options="" >
+				<fk_column name="id_module_form_block" pk="id" />
+			</fk>
+			<fk name="module_form_block_question_questions_FK" to_schema="SYH" to_table="questions" options="" >
+				<fk_column name="id_question" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="module_state_configuration" row_count="154" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_module" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="module_state" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="id_social_agent" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_module_state_configuration" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="MODULE_DOCUMENT_PHASE_SOCIAL_AGENT_UN" unique="UNIQUE_KEY" >
+				<column name="id_module" />
+				<column name="module_state" />
+				<column name="id_social_agent" />
+			</index>
+			<index name="MODULE_DOCUMENT_PHASE_SOCIAL_AGENT_FK_2" unique="NORMAL" >
+				<column name="id_social_agent" />
+			</index>
+			<fk name="MODULE_DOCUMENT_PHASE_SOCIAL_AGENT_FK" to_schema="SYH" to_table="modules" options="" >
+				<fk_column name="id_module" pk="ID" />
+			</fk>
+			<fk name="MODULE_DOCUMENT_PHASE_SOCIAL_AGENT_FK_2" to_schema="SYH" to_table="social_agent" options="" >
+				<fk_column name="id_social_agent" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="module_type" row_count="10" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="name" type="VARCHAR" length="500" jt="12" mandatory="y" />
+			<index name="pk_module_type" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="modules" row_count="187" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="ACTIVE" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[false]]></defo>
+			</column>
+			<column name="MODULE_KEY" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_campaign" type="BIGINT" length="20" jt="-5" />
+			<column name="id_contact_type" type="BIGINT" length="20" jt="-5" />
+			<column name="id_parent" type="BIGINT" length="20" jt="-5" />
+			<column name="position" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[false]]></defo>
+			</column>
+			<column name="name" type="VARCHAR" length="1000" jt="12" />
+			<column name="description" type="VARCHAR" length="1000" jt="12" />
+			<column name="id_module_type" type="BIGINT" length="20" jt="-5" />
+			<column name="guide" type="LONGBLOB" jt="-4" />
+			<index name="pk_modules" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="UNQ_modules_0" unique="UNIQUE_KEY" >
+				<column name="id_campaign" />
+				<column name="ID" />
+			</index>
+			<index name="FK_modules_id_contact_type" unique="NORMAL" >
+				<column name="id_contact_type" />
+			</index>
+			<index name="FK_modules_id_parent" unique="NORMAL" >
+				<column name="id_parent" />
+			</index>
+			<index name="modules_id_campaign_IDX" unique="NORMAL" >
+				<column name="id_campaign" />
+			</index>
+			<index name="modules_module_type_FK" unique="NORMAL" >
+				<column name="id_module_type" />
+			</index>
+			<fk name="FK_modules_id_campaign" to_schema="SYH" to_table="campaigns" options="" >
+				<fk_column name="id_campaign" pk="ID" />
+			</fk>
+			<fk name="FK_modules_id_contact_type" to_schema="SYH" to_table="contact_types" options="" >
+				<fk_column name="id_contact_type" pk="ID" />
+			</fk>
+			<fk name="FK_modules_id_parent" to_schema="SYH" to_table="modules" options="" >
+				<fk_column name="id_parent" pk="ID" />
+			</fk>
+			<fk name="modules_module_type_FK" to_schema="SYH" to_table="module_type" options="" >
+				<fk_column name="id_module_type" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="modules_documents" row_count="12144" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="DOCUMENT" type="LONGBLOB" jt="-4" />
+			<column name="id_tipus" type="BIGINT" length="20" jt="-5" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_entity" type="BIGINT" length="20" jt="-5" />
+			<column name="id_module" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_modules_documents" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="modules_documents_entities_FK" unique="NORMAL" >
+				<column name="id_entity" />
+			</index>
+			<index name="FK_modules_documents_id_module" unique="NORMAL" >
+				<column name="id_module" />
+			</index>
+			<fk name="FK_modules_documents_id_entity" to_schema="SYH" to_table="entities" options="" >
+				<fk_column name="id_entity" pk="ID" />
+			</fk>
+			<fk name="FK_modules_documents_id_module" to_schema="SYH" to_table="modules" options="" >
+				<fk_column name="id_module" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="modules_evaluable_types" row_count="183" spec="" >
+			<column name="ID_MODULE" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="ID_EVALUABLE_TYPE" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_modules_evaluable_types" unique="PRIMARY_KEY" >
+				<column name="ID_MODULE" />
+				<column name="ID_EVALUABLE_TYPE" />
+			</index>
+			<index name="module_evaluable_type_evaluable_type_FK" unique="NORMAL" >
+				<column name="ID_EVALUABLE_TYPE" />
+			</index>
+			<fk name="module_evaluable_type_evaluable_type_FK" to_schema="SYH" to_table="evaluable_type" options="" >
+				<fk_column name="ID_EVALUABLE_TYPE" pk="ID" />
+			</fk>
+			<fk name="module_evaluable_type_modules_FK" to_schema="SYH" to_table="modules" options="" >
+				<fk_column name="ID_MODULE" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="modules_indicators" row_count="10941" spec="" >
+			<column name="id_indicator" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_module" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_modules_indicators" unique="PRIMARY_KEY" >
+				<column name="id_indicator" />
+				<column name="id_module" />
+			</index>
+			<index name="FK_modules_indicators_id_module" unique="NORMAL" >
+				<column name="id_module" />
+			</index>
+			<fk name="FK_modules_indicators_id_indicator" to_schema="SYH" to_table="indicators" options="" >
+				<fk_column name="id_indicator" pk="ID" />
+			</fk>
+			<fk name="FK_modules_indicators_id_module" to_schema="SYH" to_table="modules" options="" >
+				<fk_column name="id_module" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="modules_legalforms" row_count="1003" spec="" >
+			<column name="id_module" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_legalform" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_modules_legalforms" unique="PRIMARY_KEY" >
+				<column name="id_module" />
+				<column name="id_legalform" />
+			</index>
+			<index name="modules_legalforms_legal_forms_FK" unique="NORMAL" >
+				<column name="id_legalform" />
+			</index>
+			<fk name="modules_legalforms_legal_forms_FK" to_schema="SYH" to_table="legal_forms" options="" >
+				<fk_column name="id_legalform" pk="ID" />
+			</fk>
+			<fk name="modules_legalforms_modules_FK" to_schema="SYH" to_table="modules" options="" >
+				<fk_column name="id_module" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci]]></options>
+		</table>
+		<table name="neighbourhood" row_count="73" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="name" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="id_district" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_neighbourhood" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="neighbourhood_FK" unique="NORMAL" >
+				<column name="id_district" />
+			</index>
+			<fk name="neighbourhood_FK" to_schema="SYH" to_table="district" options="" >
+				<fk_column name="id_district" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="page_content" row_count="212" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="name" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<column name="content" type="VARCHAR" length="10000" jt="12" mandatory="y" />
+			<column name="id_page" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_page_content" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="person" row_count="163" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="address" type="VARCHAR" length="100" jt="12" />
+			<column name="bank_account_iban" type="VARCHAR" length="100" jt="12" />
+			<column name="bank_account_owner" type="VARCHAR" length="100" jt="12" />
+			<column name="birth_date" type="DATE" jt="91" />
+			<column name="cp" type="VARCHAR" length="100" jt="12" />
+			<column name="email" type="VARCHAR" length="100" jt="12" />
+			<column name="name" type="VARCHAR" length="100" jt="12" />
+			<column name="nif" type="VARCHAR" length="100" jt="12" />
+			<column name="other_town" type="VARCHAR" length="100" jt="12" />
+			<column name="phone" type="VARCHAR" length="100" jt="12" />
+			<column name="quote" type="VARCHAR" length="100" jt="12" />
+			<column name="registry_request_date" type="DATE" jt="91" />
+			<column name="registry_resolution_date" type="DATE" jt="91" />
+			<column name="surnames" type="VARCHAR" length="100" jt="12" />
+			<column name="version" type="DECIMAL" length="10" decimal="0" jt="3" />
+			<column name="voluntary_quote" type="VARCHAR" length="100" jt="12" />
+			<column name="id_state" type="BIGINT" length="20" jt="-5" />
+			<column name="id_town" type="BIGINT" length="20" jt="-5" />
+			<column name="is_active" type="TINYINT" length="4" jt="-6" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<index name="pk_person" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="person_entity_state_FK" unique="NORMAL" >
+				<column name="id_state" />
+			</index>
+			<index name="person_towns_FK" unique="NORMAL" >
+				<column name="id_town" />
+			</index>
+			<fk name="person_entity_state_FK" to_schema="SYH" to_table="entity_state" options="" >
+				<fk_column name="id_state" pk="ID" />
+			</fk>
+			<fk name="person_towns_FK" to_schema="SYH" to_table="towns" options="" >
+				<fk_column name="id_town" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="policy_acceptance_document" row_count="240" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="name" type="VARCHAR" length="255" jt="12" />
+			<column name="document_title" type="VARCHAR" length="1000" jt="12" />
+			<column name="acceptance_message" type="VARCHAR" length="1000" jt="12" />
+			<column name="id_binary_resource" type="BIGINT" length="20" jt="-5" />
+			<column name="id_module" type="BIGINT" length="20" jt="-5" />
+			<column name="id_social_agent" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_policy_acceptance_document" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="acceptance_document_FK" unique="NORMAL" >
+				<column name="id_module" />
+			</index>
+			<index name="policy_acceptance_document_FK" unique="NORMAL" >
+				<column name="id_binary_resource" />
+			</index>
+			<index name="policy_acceptance_document_FK_1" unique="NORMAL" >
+				<column name="id_social_agent" />
+			</index>
+			<fk name="acceptance_document_FK" to_schema="SYH" to_table="modules" options="" >
+				<fk_column name="id_module" pk="ID" />
+			</fk>
+			<fk name="policy_acceptance_document_FK" to_schema="SYH" to_table="binary_resource" options="" >
+				<fk_column name="id_binary_resource" pk="id" />
+			</fk>
+			<fk name="policy_acceptance_document_FK_1" to_schema="SYH" to_table="social_agent" options="" >
+				<fk_column name="id_social_agent" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="project" row_count="218" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="NAME" type="VARCHAR" length="500" jt="12" mandatory="y" />
+			<column name="DESCRIPTION" type="VARCHAR" length="5000" jt="12" />
+			<column name="YEAR" type="INT" length="11" jt="4" mandatory="y" />
+			<column name="ID_ENTITY" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="ID_PRIMARY_ACTION_SCOPE" type="BIGINT" length="20" jt="-5" />
+			<column name="ID_SECONDARY_ACTION_SCOPE1" type="BIGINT" length="20" jt="-5" />
+			<column name="ID_SECONDARY_ACTION_SCOPE2" type="BIGINT" length="20" jt="-5" />
+			<column name="ID_PRIMARY_TERRITORY_SCOPE" type="BIGINT" length="20" jt="-5" />
+			<column name="ID_SECONDARY_TERRITORY_SCOPE" type="BIGINT" length="20" jt="-5" />
+			<column name="REFERENCE_PERSON_NAME" type="VARCHAR" length="255" jt="12" />
+			<column name="REFERENCE_PERSON_SURNAMES" type="VARCHAR" length="255" jt="12" />
+			<column name="REFERENCE_PERSON_TELEPHONE" type="VARCHAR" length="255" jt="12" />
+			<column name="REFERENCE_PERSON_EMAIL" type="VARCHAR" length="255" jt="12" />
+			<index name="pk_project" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="project_entities_FK" unique="NORMAL" >
+				<column name="ID_ENTITY" />
+			</index>
+			<index name="project_action_scope_FK" unique="NORMAL" >
+				<column name="ID_PRIMARY_ACTION_SCOPE" />
+			</index>
+			<index name="project_action_scope_FK_1" unique="NORMAL" >
+				<column name="ID_SECONDARY_ACTION_SCOPE1" />
+			</index>
+			<index name="project_action_scope_FK_2" unique="NORMAL" >
+				<column name="ID_SECONDARY_ACTION_SCOPE2" />
+			</index>
+			<index name="project_territory_scope_FK" unique="NORMAL" >
+				<column name="ID_PRIMARY_TERRITORY_SCOPE" />
+			</index>
+			<index name="project_territory_scope_FK_1" unique="NORMAL" >
+				<column name="ID_SECONDARY_TERRITORY_SCOPE" />
+			</index>
+			<fk name="project_action_scope_FK" to_schema="SYH" to_table="action_scope" options="" >
+				<fk_column name="ID_PRIMARY_ACTION_SCOPE" pk="ID" />
+			</fk>
+			<fk name="project_action_scope_FK_1" to_schema="SYH" to_table="action_scope" options="" >
+				<fk_column name="ID_SECONDARY_ACTION_SCOPE1" pk="ID" />
+			</fk>
+			<fk name="project_action_scope_FK_2" to_schema="SYH" to_table="action_scope" options="" >
+				<fk_column name="ID_SECONDARY_ACTION_SCOPE2" pk="ID" />
+			</fk>
+			<fk name="project_entities_FK" to_schema="SYH" to_table="entities" options="" >
+				<fk_column name="ID_ENTITY" pk="ID" />
+			</fk>
+			<fk name="project_territory_scope_FK" to_schema="SYH" to_table="territory_scope" options="" >
+				<fk_column name="ID_PRIMARY_TERRITORY_SCOPE" pk="ID" />
+			</fk>
+			<fk name="project_territory_scope_FK_1" to_schema="SYH" to_table="territory_scope" options="" >
+				<fk_column name="ID_SECONDARY_TERRITORY_SCOPE" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="provinces" row_count="52" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="name" type="VARCHAR" length="1000" jt="12" />
+			<column name="id_autonomous_community" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_provinces" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="provinces_autonomous_community_FK" unique="NORMAL" >
+				<column name="id_autonomous_community" />
+			</index>
+			<fk name="provinces_autonomous_community_FK" to_schema="SYH" to_table="autonomous_community" options="" >
+				<fk_column name="id_autonomous_community" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="question_custom_list" row_count="1430" spec="" >
+			<column name="id_question" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_custom_list" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="question_custom_list_custom_list_FK" unique="NORMAL" >
+				<column name="id_custom_list" />
+			</index>
+			<index name="question_custom_list_questions_FK" unique="NORMAL" >
+				<column name="id_question" />
+			</index>
+			<fk name="question_custom_list_custom_list_FK" to_schema="SYH" to_table="custom_list" options="" >
+				<fk_column name="id_custom_list" pk="ID" />
+			</fk>
+			<fk name="question_custom_list_questions_FK" to_schema="SYH" to_table="questions" options="" >
+				<fk_column name="id_question" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="question_table" row_count="0" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" />
+			<column name="CLASS" type="VARCHAR" length="1000" jt="12" />
+			<column name="VERSION" type="DECIMAL" length="10" decimal="0" jt="3" />
+			<column name="ID_QUESTION" type="BIGINT" length="20" jt="-5" />
+			<index name="question_table_questions_FK" unique="NORMAL" >
+				<column name="ID_QUESTION" />
+			</index>
+			<fk name="question_table_questions_FK" to_schema="SYH" to_table="questions" options="" >
+				<fk_column name="ID_QUESTION" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="questions" row_count="6344" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="QUESTION_KEY" type="VARCHAR" length="255" jt="12" />
+			<column name="OPTIONAL" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[false]]></defo>
+			</column>
+			<column name="QUESTIONTYPE" type="VARCHAR" length="255" jt="12" />
+			<column name="UNIT" type="VARCHAR" length="255" jt="12" />
+			<column name="VALIDATION" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_campaign" type="BIGINT" length="20" jt="-5" />
+			<column name="FORM_BLOCK_ID" type="BIGINT" length="20" jt="-5" />
+			<column name="show_average" type="BOOLEAN" jt="-7" />
+			<column name="id_ponderation_indicator" type="BIGINT" length="20" jt="-5" />
+			<column name="name" type="TEXT" jt="-1" />
+			<column name="description" type="TEXT" jt="-1" />
+			<column name="default_value" type="VARCHAR" length="255" jt="12" />
+			<column name="entity" type="VARCHAR" length="255" jt="12" />
+			<column name="other_entity" type="VARCHAR" length="255" jt="12" />
+			<column name="order_index" type="DECIMAL" length="10" decimal="0" jt="3" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="id_module_form_block" type="BIGINT" length="20" jt="-5" />
+			<column name="validation_message" type="VARCHAR" length="5000" jt="12" />
+			<column name="hidden" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[false]]></defo>
+			</column>
+			<index name="pk_questions" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="UNQ_questions_0" unique="UNIQUE_KEY" >
+				<column name="id_campaign" />
+				<column name="QUESTION_KEY" />
+			</index>
+			<index name="FK_questions_FORM_BLOCK_ID" unique="NORMAL" >
+				<column name="FORM_BLOCK_ID" />
+			</index>
+			<index name="questions_module_form_block_FK" unique="NORMAL" >
+				<column name="id_module_form_block" />
+			</index>
+			<fk name="FK_questions_FORM_BLOCK_ID" to_schema="SYH" to_table="form_blocks" options="" >
+				<fk_column name="FORM_BLOCK_ID" pk="ID" />
+			</fk>
+			<fk name="FK_questions_id_campaign" to_schema="SYH" to_table="campaigns" options="" >
+				<fk_column name="id_campaign" pk="ID" />
+			</fk>
+			<fk name="questions_module_form_block_FK" to_schema="SYH" to_table="module_form_block" options="" >
+				<fk_column name="id_module_form_block" pk="id" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="questions_indicators" row_count="7717" spec="" >
+			<column name="id_indicator" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_question" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_questions_indicators" unique="PRIMARY_KEY" >
+				<column name="id_indicator" />
+				<column name="id_question" />
+			</index>
+			<index name="FK_questions_indicators_id_question" unique="NORMAL" >
+				<column name="id_question" />
+			</index>
+			<fk name="FK_questions_indicators_id_indicator" to_schema="SYH" to_table="indicators" options="" >
+				<fk_column name="id_indicator" pk="ID" />
+			</fk>
+			<fk name="FK_questions_indicators_id_question" to_schema="SYH" to_table="questions" options="" >
+				<fk_column name="id_question" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="range_question" row_count="5" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="min_value" type="INT" length="11" jt="4" mandatory="y" />
+			<column name="max_value" type="INT" length="11" jt="4" mandatory="y" />
+			<column name="id_question" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_range_question" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<index name="range_question_FK" unique="NORMAL" >
+				<column name="id_question" />
+			</index>
+			<fk name="range_question_FK" to_schema="SYH" to_table="questions" options="" >
+				<fk_column name="id_question" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="regions" row_count="41" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_province" type="BIGINT" length="20" jt="-5" />
+			<column name="name" type="VARCHAR" length="1000" jt="12" />
+			<index name="pk_regions" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_regions_id_province" unique="NORMAL" >
+				<column name="id_province" />
+			</index>
+			<fk name="FK_regions_id_province" to_schema="SYH" to_table="provinces" options="" >
+				<fk_column name="id_province" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="role" row_count="3" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="ROLENAME" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="DESCRIPTION" type="VARCHAR" length="255" jt="12" />
+			<index name="pk_role" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="UNQ_roles_0" unique="UNIQUE_KEY" >
+				<column name="ROLENAME" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="sectors" row_count="134" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_parent" type="BIGINT" length="20" jt="-5" />
+			<column name="name" type="VARCHAR" length="1000" jt="12" />
+			<index name="pk_sectors" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_sectors_id_parent" unique="NORMAL" >
+				<column name="id_parent" />
+			</index>
+			<fk name="FK_sectors_id_parent" to_schema="SYH" to_table="sectors" options="" >
+				<fk_column name="id_parent" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="sectors_indicators" row_count="305360" spec="" >
+			<column name="id_indicator" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_sector" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="pk_sectors_indicators" unique="PRIMARY_KEY" >
+				<column name="id_indicator" />
+				<column name="id_sector" />
+			</index>
+			<index name="FK_sectors_indicators_id_sector" unique="NORMAL" >
+				<column name="id_sector" />
+			</index>
+			<fk name="FK_sectors_indicators_id_indicator" to_schema="SYH" to_table="indicators" options="" >
+				<fk_column name="id_indicator" pk="ID" />
+			</fk>
+			<fk name="FK_sectors_indicators_id_sector" to_schema="SYH" to_table="sectors" options="" >
+				<fk_column name="id_sector" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="secured_object" row_count="110" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="NAME" type="VARCHAR" length="255" jt="12" mandatory="y" />
+			<column name="secured_object_key" type="VARCHAR" length="255" jt="12" />
+			<column name="secured_object_type" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="parent_id" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_secured_object" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_secured_object_parent_id" unique="NORMAL" >
+				<column name="parent_id" />
+			</index>
+			<fk name="FK_secured_object_parent_id" to_schema="SYH" to_table="secured_object" options="" >
+				<fk_column name="parent_id" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="sequence_table" row_count="48" spec="" >
+			<column name="SEQ_NAME" type="VARCHAR" length="50" jt="12" mandatory="y" />
+			<column name="SEQ_COUNT" type="DECIMAL" length="38" decimal="0" jt="3" />
+			<index name="pk_sequence_table" unique="PRIMARY_KEY" >
+				<column name="SEQ_NAME" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="social_agent" row_count="23" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="name" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_user" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_social_agent" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="social_agent_user_FK" unique="NORMAL" >
+				<column name="id_user" />
+			</index>
+			<fk name="social_agent_user_FK" to_schema="SYH" to_table="user" options="" >
+				<fk_column name="id_user" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="social_agent_autonomous_community" row_count="39" spec="" >
+			<column name="id_social_agent" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_autonomous_community" type="BIGINT" length="20" jt="-5" />
+			<index name="sa_ccaa_community_FK" unique="NORMAL" >
+				<column name="id_autonomous_community" />
+			</index>
+			<index name="sa_social_agent__FK" unique="NORMAL" >
+				<column name="id_social_agent" />
+			</index>
+			<fk name="sa_ccaa_community_FK" to_schema="SYH" to_table="autonomous_community" options="" >
+				<fk_column name="id_autonomous_community" pk="ID" />
+			</fk>
+			<fk name="sa_social_agent__FK" to_schema="SYH" to_table="social_agent" options="" >
+				<fk_column name="id_social_agent" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="social_agent_module" row_count="187" spec="" >
+			<column name="id_module" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_social_agent" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<index name="social_agent_module_UN" unique="UNIQUE_KEY" >
+				<column name="id_module" />
+				<column name="id_social_agent" />
+			</index>
+			<index name="social_agent_module_social_agent_FK" unique="NORMAL" >
+				<column name="id_social_agent" />
+			</index>
+			<fk name="social_agent_module_modules_FK" to_schema="SYH" to_table="modules" options="" >
+				<fk_column name="id_module" pk="ID" />
+			</fk>
+			<fk name="social_agent_module_social_agent_FK" to_schema="SYH" to_table="social_agent" options="" >
+				<fk_column name="id_social_agent" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="stamps" row_count="259" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="IMAGE" type="LONGBLOB" jt="-4" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_last_stamp" type="BIGINT" length="20" jt="-5" />
+			<column name="id_entities_modules" type="BIGINT" length="20" jt="-5" />
+			<column name="id_stamp_document" type="BIGINT" length="20" jt="-5" />
+			<column name="id_license_document" type="BIGINT" length="20" jt="-5" />
+			<column name="id_compromises_document" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_stamps" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_stamps_id_entities_modules" unique="NORMAL" >
+				<column name="id_entities_modules" />
+			</index>
+			<index name="FK_stamps_id_last_stamp" unique="NORMAL" >
+				<column name="id_last_stamp" />
+			</index>
+			<index name="FK_stamp_modules_documents" unique="NORMAL" >
+				<column name="id_stamp_document" />
+			</index>
+			<index name="FK_license_modules_documents" unique="NORMAL" >
+				<column name="id_license_document" />
+			</index>
+			<index name="FK_compromises_modules_documents" unique="NORMAL" >
+				<column name="id_compromises_document" />
+			</index>
+			<fk name="FK_compromises_modules_documents" to_schema="SYH" to_table="modules_documents" options="" >
+				<fk_column name="id_compromises_document" pk="ID" />
+			</fk>
+			<fk name="FK_license_modules_documents" to_schema="SYH" to_table="modules_documents" options="" >
+				<fk_column name="id_license_document" pk="ID" />
+			</fk>
+			<fk name="FK_stamp_modules_documents" to_schema="SYH" to_table="modules_documents" options="" >
+				<fk_column name="id_stamp_document" pk="ID" />
+			</fk>
+			<fk name="FK_stamps_id_entities_modules" to_schema="SYH" to_table="entity_module_info" options="" >
+				<fk_column name="id_entities_modules" pk="ID" />
+			</fk>
+			<fk name="FK_stamps_id_last_stamp" to_schema="SYH" to_table="stamps" options="" >
+				<fk_column name="id_last_stamp" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="static_page" row_count="694" spec="" >
+			<column name="id" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="name" type="VARCHAR" length="100" jt="12" />
+			<column name="content" type="VARCHAR" length="10000" jt="12" />
+			<column name="id_language" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="id_social_agent" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_static_page" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="territory_scope" row_count="5" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="VERSION" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="NAME" type="VARCHAR" length="100" jt="12" mandatory="y" />
+			<index name="pk_territory_scope" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="tipus_document" row_count="4" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="EXTENSION" type="VARCHAR" length="10" jt="12" />
+			<column name="NAME" type="VARCHAR" length="1000" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_tipus_document" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="towns" row_count="8272" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="id_region" type="BIGINT" length="20" jt="-5" />
+			<column name="name" type="VARCHAR" length="1000" jt="12" />
+			<column name="id_province" type="BIGINT" length="20" jt="-5" />
+			<index name="pk_towns" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="FK_towns_id_region" unique="NORMAL" >
+				<column name="id_region" />
+			</index>
+			<index name="towns_provinces_FK" unique="NORMAL" >
+				<column name="id_province" />
+			</index>
+			<fk name="FK_towns_id_region" to_schema="SYH" to_table="regions" options="" >
+				<fk_column name="id_region" pk="ID" />
+			</fk>
+			<fk name="towns_provinces_FK" to_schema="SYH" to_table="provinces" options="" >
+				<fk_column name="id_province" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="user" row_count="2473" spec="" >
+			<column name="ID" type="BIGINT" length="20" jt="-5" mandatory="y" />
+			<column name="EMAIL" type="VARCHAR" length="255" jt="12" />
+			<column name="ENABLED" type="BOOLEAN" jt="-7" >
+				<defo><![CDATA[false]]></defo>
+			</column>
+			<column name="NAME" type="VARCHAR" length="255" jt="12" />
+			<column name="PASSWORD" type="VARCHAR" length="255" jt="12" />
+			<column name="SURNAME" type="VARCHAR" length="255" jt="12" />
+			<column name="USERNAME" type="VARCHAR" length="255" jt="12" />
+			<column name="version" type="BIGINT" length="20" jt="-5" />
+			<column name="ID_LANGUAGE" type="BIGINT" length="20" jt="-5" />
+			<column name="LAST_UPDATE" type="TIMESTAMP" jt="93" />
+			<column name="phone" type="VARCHAR" length="255" jt="12" />
+			<index name="pk_user" unique="PRIMARY_KEY" >
+				<column name="ID" />
+			</index>
+			<index name="UNQ_users_0" unique="UNIQUE_KEY" >
+				<column name="USERNAME" />
+			</index>
+			<index name="FK_users_ID_LANGUAGE" unique="NORMAL" >
+				<column name="ID_LANGUAGE" />
+			</index>
+			<fk name="FK_users_ID_LANGUAGE" to_schema="SYH" to_table="language" options="" >
+				<fk_column name="ID_LANGUAGE" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+		<table name="user_role" row_count="2250" spec="" >
+			<column name="id_user" type="BIGINT" length="20" jt="-5" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<column name="id_role" type="BIGINT" length="20" jt="-5" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+			</column>
+			<index name="pk_user_role" unique="PRIMARY_KEY" >
+				<column name="id_role" />
+				<column name="id_user" />
+			</index>
+			<index name="user_role_user_FK" unique="NORMAL" >
+				<column name="id_user" />
+			</index>
+			<fk name="user_role_role_FK" to_schema="SYH" to_table="role" options="" >
+				<fk_column name="id_role" pk="ID" />
+			</fk>
+			<fk name="user_role_user_FK" to_schema="SYH" to_table="user" options="" >
+				<fk_column name="id_user" pk="ID" />
+			</fk>
+			<options><![CDATA[ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci]]></options>
+		</table>
+	</schema>
+	<layout name="Main Layout" id="Layout-8eb" show_relation="cascade" >
+		<comment><![CDATA[Ensenya el cor]]></comment>
+		<entity schema="SYH" name="BATCH_JOB_EXECUTION" color="F4DDBE" x="391" y="255" />
+		<entity schema="SYH" name="BATCH_JOB_EXECUTION_CONTEXT" color="F4DDBE" x="51" y="595" />
+		<entity schema="SYH" name="BATCH_JOB_EXECUTION_PARAMS" color="F4DDBE" x="51" y="306" />
+		<entity schema="SYH" name="BATCH_JOB_EXECUTION_SEQ" color="F4DDBE" x="85" y="85" />
+		<entity schema="SYH" name="BATCH_JOB_INSTANCE" color="F4DDBE" x="391" y="595" />
+		<entity schema="SYH" name="BATCH_JOB_SEQ" color="F4DDBE" x="663" y="816" />
+		<entity schema="SYH" name="BATCH_STEP_EXECUTION" color="F4DDBE" x="748" y="255" />
+		<entity schema="SYH" name="BATCH_STEP_EXECUTION_CONTEXT" color="F4DDBE" x="1037" y="255" />
+		<entity schema="SYH" name="BATCH_STEP_EXECUTION_SEQ" color="F4DDBE" x="1037" y="544" />
+		<entity schema="SYH" name="acl" color="BEBEF4" x="3162" y="1037" />
+		<entity schema="SYH" name="action_scope" color="BEBEF4" x="1734" y="2397" />
+		<entity schema="SYH" name="answers" color="C7F4BE" x="4743" y="1972" />
+		<entity schema="SYH" name="answers_20220902" color="C7F4BE" x="5015" y="1972" />
+		<entity schema="SYH" name="association_autonomous_community" color="BED3F4" x="2261" y="3077" />
+		<entity schema="SYH" name="associations" color="BED3F4" x="2618" y="3077" />
+		<entity schema="SYH" name="autonomous_community" color="BED3F4" x="1989" y="3077" />
+		<entity schema="SYH" name="binary_resource" color="D1BEF4" x="3740" y="2363" />
+		<entity schema="SYH" name="campaign_policy_acceptance_entity" color="C7F4BE" x="4029" y="1989" />
+		<entity schema="SYH" name="campaigns" color="C7F4BE" x="4420" y="1972" />
+		<entity schema="SYH" name="compromise_documents" color="BED3F4" x="2873" y="3332" />
+		<entity schema="SYH" name="compromises" color="BED3F4" x="2873" y="3026" />
+		<entity schema="SYH" name="conditional_questions" color="C7F4BE" x="2584" y="2227" />
+		<entity schema="SYH" name="configuration" color="F4DDBE" x="1972" y="1683" />
+		<entity schema="SYH" name="configuration_social_agent" color="F4DDBE" x="1683" y="1445" />
+		<entity schema="SYH" name="contact_types" color="C7F4BE" x="3400" y="1394" />
+		<entity schema="SYH" name="contacts" color="C7F4BE" x="3145" y="1394" />
+		<entity schema="SYH" name="custom_list" color="D1BEF4" x="5831" y="2244" />
+		<entity schema="SYH" name="custom_list_item" color="D1BEF4" x="6069" y="2193" />
+		<entity schema="SYH" name="district" color="BED3F4" x="1564" y="3315" />
+		<entity schema="SYH" name="emails" color="C7F4BE" x="4148" y="2295" />
+		<entity schema="SYH" name="entities" color="C7F4BE" x="1989" y="1972" >
+			<column name="ID" />
+			<column name="active" />
+			<column name="ADDRESS" />
+			<column name="bs_allow_final" />
+			<column name="bs_allow_public" />
+			<column name="code" />
+			<column name="CP" />
+			<column name="description" />
+			<column name="EMAIL" />
+			<column name="name" />
+			<column name="NIF" />
+			<column name="id_legal_form" />
+			<column name="id_sector" />
+			<column name="id_bs_state" />
+			<column name="id_town" />
+			<column name="PROVINCE_ID" />
+			<column name="REGION_ID" />
+			<column name="id_xes_state" />
+			<column name="id_user" />
+			<column name="id_autonomous_community" />
+			<column name="id_secondary_sector" />
+			<column name="id_neighbourhood" />
+		</entity>
+		<entity schema="SYH" name="entity_module" color="BED3F4" x="3570" y="3026" />
+		<entity schema="SYH" name="entity_module_info" color="BED3F4" x="3230" y="3026" />
+		<entity schema="SYH" name="entity_state" color="C7F4BE" x="2346" y="2295" />
+		<entity schema="SYH" name="evaluable" color="C7F4BE" x="2873" y="1394" />
+		<entity schema="SYH" name="evaluable_type" color="C7F4BE" x="2873" y="1598" />
+		<entity schema="SYH" name="form_blocks" color="C7F4BE" x="4420" y="2295" />
+		<entity schema="SYH" name="form_documents" color="C7F4BE" x="4675" y="2584" />
+		<entity schema="SYH" name="indicator_average_value" color="F4DDBE" x="4250" y="3451" />
+		<entity schema="SYH" name="indicator_value" color="BED3F4" x="3570" y="3451" />
+		<entity schema="SYH" name="indicators" color="F4DDBE" x="3910" y="3026" />
+		<entity schema="SYH" name="indicators_indicators" color="F4DDBE" x="3910" y="3451" />
+		<entity schema="SYH" name="language" color="BEBEF4" x="867" y="1360" />
+		<entity schema="SYH" name="legal_forms" color="C7F4BE" x="2346" y="1972" />
+		<entity schema="SYH" name="localized_message" color="BEBEF4" x="1122" y="1360" />
+		<entity schema="SYH" name="membership" color="C7F4BE" x="2346" y="2533" />
+		<entity schema="SYH" name="module_document_configuration" color="F4DDBE" x="2278" y="1224" />
+		<entity schema="SYH" name="module_form_block" color="D1BEF4" x="3400" y="1972" />
+		<entity schema="SYH" name="module_form_block_question" color="D1BEF4" x="3689" y="1972" />
+		<entity schema="SYH" name="module_state_configuration" color="F4DDBE" x="1972" y="1224" />
+		<entity schema="SYH" name="module_type" color="D1BEF4" x="2873" y="2363" />
+		<entity schema="SYH" name="modules" color="D1BEF4" x="3111" y="1972" />
+		<entity schema="SYH" name="modules_documents" color="BED3F4" x="3230" y="2703" />
+		<entity schema="SYH" name="modules_evaluable_types" color="C7F4BE" x="3400" y="1734" />
+		<entity schema="SYH" name="modules_indicators" color="D1BEF4" x="3111" y="2363" />
+		<entity schema="SYH" name="modules_legalforms" color="C7F4BE" x="2584" y="1972" />
+		<entity schema="SYH" name="neighbourhood" color="BED3F4" x="1768" y="3536" />
+		<entity schema="SYH" name="page_content" color="BED3F4" x="1411" y="493" />
+		<entity schema="SYH" name="person" color="C7F4BE" x="2006" y="2533" />
+		<entity schema="SYH" name="policy_acceptance_document" color="D1BEF4" x="3400" y="2363" />
+		<entity schema="SYH" name="project" color="BEBEF4" x="1326" y="2397" />
+		<entity schema="SYH" name="provinces" color="BED3F4" x="1989" y="3315" />
+		<entity schema="SYH" name="question_custom_list" color="D1BEF4" x="5831" y="2465" />
+		<entity schema="SYH" name="question_table" color="D1BEF4" x="5287" y="2465" />
+		<entity schema="SYH" name="questions" color="D1BEF4" x="5525" y="1972" />
+		<entity schema="SYH" name="questions_indicators" color="D1BEF4" x="5831" y="1972" />
+		<entity schema="SYH" name="range_question" color="D1BEF4" x="5525" y="2465" />
+		<entity schema="SYH" name="regions" color="BED3F4" x="1768" y="3315" />
+		<entity schema="SYH" name="role" color="BEBEF4" x="1054" y="1700" />
+		<entity schema="SYH" name="sectors" color="F4DDBE" x="4250" y="3026" />
+		<entity schema="SYH" name="sectors_indicators" color="F4DDBE" x="4488" y="3026" />
+		<entity schema="SYH" name="secured_object" color="BEBEF4" x="2873" y="1037" />
+		<entity schema="SYH" name="sequence_table" color="BED3F4" x="1615" y="493" />
+		<entity schema="SYH" name="social_agent" color="F4DDBE" x="1768" y="1224" />
+		<entity schema="SYH" name="social_agent_autonomous_community" color="F4DDBE" x="1411" y="1258" />
+		<entity schema="SYH" name="social_agent_module" color="F4DDBE" x="1513" y="1037" />
+		<entity schema="SYH" name="stamps" color="BED3F4" x="2873" y="2703" />
+		<entity schema="SYH" name="static_page" color="BED3F4" x="1615" y="731" />
+		<entity schema="SYH" name="territory_scope" color="BEBEF4" x="1734" y="2822" />
+		<entity schema="SYH" name="tipus_document" color="F4DDBE" x="2618" y="1224" />
+		<entity schema="SYH" name="towns" color="BED3F4" x="1768" y="3077" />
+		<entity schema="SYH" name="user" color="BEBEF4" x="629" y="1360" />
+		<entity schema="SYH" name="user_role" color="BEBEF4" x="867" y="1700" />
+		<group name="page_content" color="ECF0F7" >
+			<entity schema="SYH" name="page_content" />
+			<entity schema="SYH" name="sequence_table" />
+			<entity schema="SYH" name="static_page" />
+		</group>
+		<group name="secured_object" color="ECECF7" >
+			<entity schema="SYH" name="secured_object" />
+			<entity schema="SYH" name="acl" />
+		</group>
+		<group name="BATCH_JOB_EXECUTION" color="F7F2EC" >
+			<entity schema="SYH" name="BATCH_JOB_EXECUTION" />
+			<entity schema="SYH" name="BATCH_STEP_EXECUTION" />
+			<entity schema="SYH" name="BATCH_JOB_INSTANCE" />
+			<entity schema="SYH" name="BATCH_JOB_EXECUTION_CONTEXT" />
+			<entity schema="SYH" name="BATCH_JOB_EXECUTION_PARAMS" />
+			<entity schema="SYH" name="BATCH_STEP_EXECUTION_CONTEXT" />
+			<entity schema="SYH" name="BATCH_JOB_SEQ" />
+			<entity schema="SYH" name="BATCH_JOB_EXECUTION_SEQ" />
+			<entity schema="SYH" name="BATCH_STEP_EXECUTION_SEQ" />
+		</group>
+		<group name="project" color="ECECF7" >
+			<entity schema="SYH" name="project" />
+			<entity schema="SYH" name="action_scope" />
+			<entity schema="SYH" name="territory_scope" />
+		</group>
+		<group name="user" color="ECECF7" >
+			<entity schema="SYH" name="user" />
+			<entity schema="SYH" name="language" />
+			<entity schema="SYH" name="user_role" />
+			<entity schema="SYH" name="localized_message" />
+			<entity schema="SYH" name="role" />
+		</group>
+		<group name="evaluable" color="EEF7EC" >
+			<entity schema="SYH" name="evaluable" />
+			<entity schema="SYH" name="contacts" />
+			<entity schema="SYH" name="contact_types" />
+			<entity schema="SYH" name="modules_evaluable_types" />
+			<entity schema="SYH" name="evaluable_type" />
+		</group>
+		<group name="questions" color="F0ECF7" >
+			<entity schema="SYH" name="questions" />
+			<entity schema="SYH" name="questions_indicators" />
+			<entity schema="SYH" name="custom_list" />
+			<entity schema="SYH" name="question_custom_list" />
+			<entity schema="SYH" name="range_question" />
+			<entity schema="SYH" name="question_table" />
+			<entity schema="SYH" name="custom_list_item" />
+		</group>
+		<group name="indicators" color="F7F2EC" >
+			<entity schema="SYH" name="indicators" />
+			<entity schema="SYH" name="sectors" />
+			<entity schema="SYH" name="indicator_average_value" />
+			<entity schema="SYH" name="indicators_indicators" />
+			<entity schema="SYH" name="sectors_indicators" />
+		</group>
+		<group name="social_agent" color="F7F2EC" >
+			<entity schema="SYH" name="social_agent" />
+			<entity schema="SYH" name="module_state_configuration" />
+			<entity schema="SYH" name="configuration_social_agent" />
+			<entity schema="SYH" name="social_agent_autonomous_community" />
+			<entity schema="SYH" name="social_agent_module" />
+			<entity schema="SYH" name="module_document_configuration" />
+			<entity schema="SYH" name="configuration" />
+			<entity schema="SYH" name="tipus_document" />
+		</group>
+		<group name="stamps" color="ECF0F7" >
+			<entity schema="SYH" name="stamps" />
+			<entity schema="SYH" name="modules_documents" />
+			<entity schema="SYH" name="entity_module_info" />
+			<entity schema="SYH" name="compromises" />
+			<entity schema="SYH" name="entity_module" />
+			<entity schema="SYH" name="indicator_value" />
+			<entity schema="SYH" name="compromise_documents" />
+		</group>
+		<group name="towns" color="ECF0F7" >
+			<entity schema="SYH" name="towns" />
+			<entity schema="SYH" name="autonomous_community" />
+			<entity schema="SYH" name="provinces" />
+			<entity schema="SYH" name="regions" />
+			<entity schema="SYH" name="association_autonomous_community" />
+			<entity schema="SYH" name="associations" />
+			<entity schema="SYH" name="district" />
+			<entity schema="SYH" name="neighbourhood" />
+		</group>
+		<group name="campaigns" color="EEF7EC" >
+			<entity schema="SYH" name="campaigns" />
+			<entity schema="SYH" name="answers" />
+			<entity schema="SYH" name="form_blocks" />
+			<entity schema="SYH" name="emails" />
+			<entity schema="SYH" name="campaign_policy_acceptance_entity" />
+			<entity schema="SYH" name="form_documents" />
+			<entity schema="SYH" name="answers_20220902" />
+		</group>
+		<group name="entities" color="EEF7EC" >
+			<entity schema="SYH" name="entities" />
+			<entity schema="SYH" name="legal_forms" />
+			<entity schema="SYH" name="entity_state" />
+			<entity schema="SYH" name="modules_legalforms" />
+			<entity schema="SYH" name="membership" />
+			<entity schema="SYH" name="person" />
+			<entity schema="SYH" name="conditional_questions" />
+		</group>
+		<group name="modules" color="F0ECF7" >
+			<entity schema="SYH" name="modules" />
+			<entity schema="SYH" name="module_form_block" />
+			<entity schema="SYH" name="policy_acceptance_document" />
+			<entity schema="SYH" name="modules_indicators" />
+			<entity schema="SYH" name="module_form_block_question" />
+			<entity schema="SYH" name="binary_resource" />
+			<entity schema="SYH" name="module_type" />
+		</group>
+	</layout>
+	<layout name="~Layout with Sample Tools" id="Layout-1559" show_column_type="y" show_relation="cascade" >
+		<entity schema="SYH" name="BATCH_JOB_EXECUTION" color="F4DDBE" x="408" y="221" />
+		<entity schema="SYH" name="BATCH_JOB_EXECUTION_CONTEXT" color="F4DDBE" x="51" y="561" />
+		<entity schema="SYH" name="BATCH_JOB_EXECUTION_PARAMS" color="F4DDBE" x="68" y="272" />
+		<entity schema="SYH" name="BATCH_JOB_EXECUTION_SEQ" color="F4DDBE" x="102" y="51" />
+		<entity schema="SYH" name="BATCH_JOB_INSTANCE" color="F4DDBE" x="408" y="561" />
+		<entity schema="SYH" name="BATCH_JOB_SEQ" color="F4DDBE" x="714" y="782" />
+		<entity schema="SYH" name="BATCH_STEP_EXECUTION" color="F4DDBE" x="867" y="221" />
+		<entity schema="SYH" name="BATCH_STEP_EXECUTION_CONTEXT" color="F4DDBE" x="1207" y="221" />
+		<entity schema="SYH" name="BATCH_STEP_EXECUTION_SEQ" color="F4DDBE" x="1207" y="510" />
+		<entity schema="SYH" name="acl" color="BEBEF4" x="3604" y="1003" />
+		<entity schema="SYH" name="action_scope" color="BEBEF4" x="1819" y="2397" />
+		<entity schema="SYH" name="answers" color="C7F4BE" x="5423" y="1938" />
+		<entity schema="SYH" name="answers_20220902" color="C7F4BE" x="5763" y="1938" />
+		<entity schema="SYH" name="association_autonomous_community" color="BED3F4" x="2533" y="3077" />
+		<entity schema="SYH" name="associations" color="BED3F4" x="2890" y="3077" />
+		<entity schema="SYH" name="autonomous_community" color="BED3F4" x="2261" y="3077" />
+		<entity schema="SYH" name="binary_resource" color="D1BEF4" x="4301" y="2329" />
+		<entity schema="SYH" name="campaign_policy_acceptance_entity" color="C7F4BE" x="4641" y="1955" />
+		<entity schema="SYH" name="campaigns" color="C7F4BE" x="5066" y="1938" />
+		<entity schema="SYH" name="compromise_documents" color="BED3F4" x="3230" y="3298" />
+		<entity schema="SYH" name="compromises" color="BED3F4" x="3230" y="2992" />
+		<entity schema="SYH" name="conditional_questions" color="C7F4BE" x="2125" y="1938" />
+		<entity schema="SYH" name="configuration" color="F4DDBE" x="2227" y="1649" />
+		<entity schema="SYH" name="configuration_social_agent" color="F4DDBE" x="1938" y="1411" />
+		<entity schema="SYH" name="contact_types" color="C7F4BE" x="3859" y="1360" />
+		<entity schema="SYH" name="contacts" color="C7F4BE" x="3553" y="1360" />
+		<entity schema="SYH" name="custom_list" color="D1BEF4" x="6766" y="2210" />
+		<entity schema="SYH" name="custom_list_item" color="D1BEF4" x="7055" y="2210" />
+		<entity schema="SYH" name="district" color="BED3F4" x="1700" y="3315" />
+		<entity schema="SYH" name="emails" color="C7F4BE" x="4760" y="2261" />
+		<entity schema="SYH" name="entities" color="C7F4BE" x="2125" y="2210" >
+			<column name="ID" />
+			<column name="active" />
+			<column name="ADDRESS" />
+			<column name="bs_allow_final" />
+			<column name="bs_allow_public" />
+			<column name="code" />
+			<column name="CP" />
+			<column name="description" />
+			<column name="EMAIL" />
+			<column name="name" />
+			<column name="NIF" />
+			<column name="id_legal_form" />
+			<column name="id_sector" />
+			<column name="id_bs_state" />
+			<column name="id_town" />
+			<column name="PROVINCE_ID" />
+			<column name="REGION_ID" />
+			<column name="id_xes_state" />
+			<column name="id_user" />
+			<column name="id_autonomous_community" />
+			<column name="id_secondary_sector" />
+			<column name="id_neighbourhood" />
+		</entity>
+		<entity schema="SYH" name="entity_module" color="BED3F4" x="3995" y="2992" />
+		<entity schema="SYH" name="entity_module_info" color="BED3F4" x="3621" y="2992" />
+		<entity schema="SYH" name="entity_state" color="C7F4BE" x="2516" y="2533" />
+		<entity schema="SYH" name="evaluable" color="C7F4BE" x="3230" y="1360" />
+		<entity schema="SYH" name="evaluable_type" color="C7F4BE" x="3230" y="1564" />
+		<entity schema="SYH" name="form_blocks" color="C7F4BE" x="5066" y="2261" />
+		<entity schema="SYH" name="form_documents" color="C7F4BE" x="5423" y="2550" />
+		<entity schema="SYH" name="indicator_average_value" color="F4DDBE" x="4760" y="3417" />
+		<entity schema="SYH" name="indicator_value" color="BED3F4" x="3995" y="3417" />
+		<entity schema="SYH" name="indicators" color="F4DDBE" x="4369" y="2992" />
+		<entity schema="SYH" name="indicators_indicators" color="F4DDBE" x="4369" y="3417" />
+		<entity schema="SYH" name="language" color="BEBEF4" x="884" y="1326" />
+		<entity schema="SYH" name="legal_forms" color="C7F4BE" x="2516" y="2210" />
+		<entity schema="SYH" name="localized_message" color="BEBEF4" x="1207" y="1326" />
+		<entity schema="SYH" name="membership" color="C7F4BE" x="2516" y="2771" />
+		<entity schema="SYH" name="module_document_configuration" color="F4DDBE" x="2550" y="1190" />
+		<entity schema="SYH" name="module_form_block" color="D1BEF4" x="3893" y="1938" />
+		<entity schema="SYH" name="module_form_block_question" color="D1BEF4" x="4216" y="1938" />
+		<entity schema="SYH" name="module_state_configuration" color="F4DDBE" x="2227" y="1190" />
+		<entity schema="SYH" name="module_type" color="D1BEF4" x="3230" y="2329" />
+		<entity schema="SYH" name="modules" color="D1BEF4" x="3536" y="1938" />
+		<entity schema="SYH" name="modules_documents" color="BED3F4" x="3621" y="2669" />
+		<entity schema="SYH" name="modules_evaluable_types" color="C7F4BE" x="3859" y="1700" />
+		<entity schema="SYH" name="modules_indicators" color="D1BEF4" x="3536" y="2329" />
+		<entity schema="SYH" name="modules_legalforms" color="C7F4BE" x="2839" y="2210" />
+		<entity schema="SYH" name="neighbourhood" color="BED3F4" x="1972" y="3536" />
+		<entity schema="SYH" name="page_content" color="BED3F4" x="1598" y="459" />
+		<entity schema="SYH" name="person" color="C7F4BE" x="2822" y="2533" />
+		<entity schema="SYH" name="policy_acceptance_document" color="D1BEF4" x="3893" y="2329" />
+		<entity schema="SYH" name="project" color="BEBEF4" x="1343" y="2397" />
+		<entity schema="SYH" name="provinces" color="BED3F4" x="2261" y="3315" />
+		<entity schema="SYH" name="question_custom_list" color="D1BEF4" x="6766" y="2431" />
+		<entity schema="SYH" name="question_table" color="D1BEF4" x="6103" y="2431" />
+		<entity schema="SYH" name="questions" color="D1BEF4" x="6392" y="1938" />
+		<entity schema="SYH" name="questions_indicators" color="D1BEF4" x="6766" y="1938" />
+		<entity schema="SYH" name="range_question" color="D1BEF4" x="6392" y="2431" />
+		<entity schema="SYH" name="regions" color="BED3F4" x="1972" y="3315" />
+		<entity schema="SYH" name="role" color="BEBEF4" x="1122" y="1666" />
+		<entity schema="SYH" name="sectors" color="F4DDBE" x="4760" y="2992" />
+		<entity schema="SYH" name="sectors_indicators" color="F4DDBE" x="5083" y="2992" />
+		<entity schema="SYH" name="secured_object" color="BEBEF4" x="3230" y="1003" />
+		<entity schema="SYH" name="sequence_table" color="BED3F4" x="1904" y="459" />
+		<entity schema="SYH" name="social_agent" color="F4DDBE" x="1955" y="1190" />
+		<entity schema="SYH" name="social_agent_autonomous_community" color="F4DDBE" x="1598" y="1224" />
+		<entity schema="SYH" name="social_agent_module" color="F4DDBE" x="1666" y="1003" />
+		<entity schema="SYH" name="stamps" color="BED3F4" x="3230" y="2669" />
+		<entity schema="SYH" name="static_page" color="BED3F4" x="1904" y="697" />
+		<entity schema="SYH" name="territory_scope" color="BEBEF4" x="1819" y="2822" />
+		<entity schema="SYH" name="tipus_document" color="F4DDBE" x="2890" y="1190" />
+		<entity schema="SYH" name="towns" color="BED3F4" x="1972" y="3077" />
+		<entity schema="SYH" name="user" color="BEBEF4" x="578" y="1326" />
+		<entity schema="SYH" name="user_role" color="BEBEF4" x="884" y="1666" />
+		<script name="SQL Editor" id="Editor-82b" language="SQL" >
+			<string><![CDATA[SELECT
+	`ID`, active, `ADDRESS`, bs_allow_final, bs_allow_public, code, `CP`, description, `EMAIL`, name, `NIF`, other_town, 
+	`PHONE`, bs_registry_request_date, bs_registry_resolution_date, shortname, version, `WEB`, `CREATIONYEAR`, id_legal_form, 
+	id_sector, id_bs_state, id_town, `PROVINCE_ID`, `REGION_ID`, logo, pamapam_url, allow_xes_info, partner_number, xes_description, 
+	xes_registry_request_date, xes_registry_resolution_date, id_xes_state, bank_account_owner, bank_account_iban, administration_contact, 
+	xes_collaborator, id_user, id_autonomous_community, transversal, id_secondary_sector, social_objective, evaluate_project, 
+	xes_active, hosting_policit_accepted, id_neighbourhood, facebook, instagram, twitter, is_xes, latitude, longitude, free_text_associations
+FROM
+	`SYH`.entities s;]]></string>
+		</script>
+		<browser id="Browse-1e5a" name="Relational Data Explorer" confirm_updates="y" >
+			<browse_table schema="SYH" entity="entities" x="-2147483648" y="-2147483648" width="-2147483648" height="-2147483648" >
+				<browse_table schema="SYH" entity="campaign_policy_acceptance_entity" fk="campaign_policy_acceptance_entity_FK_1" x="40" y="-2147483648" width="500" height="350" >
+					<browse_table schema="SYH" entity="campaigns" fk="campaign_policy_acceptance_entity_FK" x="580" y="-2147483648" width="500" height="350" record_view="y" />
+				</browse_table>
+			</browse_table>
+		</browser>
+		<query id="Query-1d6d" name="Query Builder" >
+			<query_table schema="SYH" name="entities" alias="e" x="51" y="51" >
+				<column name="ID" />
+				<column name="active" />
+				<column name="ADDRESS" />
+				<column name="bs_allow_final" />
+				<column name="bs_allow_public" />
+				<column name="code" />
+				<column name="CP" />
+				<column name="description" />
+				<column name="EMAIL" />
+				<column name="name" />
+				<column name="NIF" />
+				<column name="other_town" />
+				<column name="PHONE" />
+				<column name="bs_registry_request_date" />
+				<column name="bs_registry_resolution_date" />
+				<column name="shortname" />
+				<column name="version" />
+				<column name="WEB" />
+				<column name="CREATIONYEAR" />
+				<column name="id_legal_form" />
+				<column name="id_sector" />
+				<column name="id_bs_state" />
+				<column name="id_town" />
+				<column name="PROVINCE_ID" />
+				<column name="REGION_ID" />
+				<column name="logo" />
+				<column name="pamapam_url" />
+				<column name="allow_xes_info" />
+				<column name="partner_number" />
+				<column name="xes_description" />
+				<column name="xes_registry_request_date" />
+				<column name="xes_registry_resolution_date" />
+				<column name="id_xes_state" />
+				<column name="bank_account_owner" />
+				<column name="bank_account_iban" />
+				<column name="administration_contact" />
+				<column name="xes_collaborator" />
+				<column name="id_user" />
+				<column name="id_autonomous_community" />
+				<column name="transversal" />
+				<column name="id_secondary_sector" />
+				<column name="social_objective" />
+				<column name="evaluate_project" />
+				<column name="xes_active" />
+				<column name="hosting_policit_accepted" />
+				<column name="id_neighbourhood" />
+				<column name="facebook" />
+				<column name="instagram" />
+				<column name="twitter" />
+				<column name="is_xes" />
+				<column name="latitude" />
+				<column name="longitude" />
+				<column name="free_text_associations" />
+				<query_table schema="SYH" name="campaign_policy_acceptance_entity" alias="cpae" x="391" y="51" fk="campaign_policy_acceptance_entity_FK_1" type="Inner Join" >
+					<column name="id" />
+					<column name="version" />
+					<column name="id_campaign" />
+					<column name="id_entity" />
+					<column name="id_policy_acceptance_document" />
+					<column name="acceptance_date" />
+					<column name="document" />
+					<query_table schema="SYH" name="campaigns" alias="c" x="782" y="51" fk="campaign_policy_acceptance_entity_FK" type="Inner Join" >
+						<column name="ID" />
+						<column name="ACTIVE" />
+						<column name="end_date" />
+						<column name="start_date" />
+						<column name="version" />
+						<column name="id_previous_campaign" />
+						<column name="name" />
+						<column name="year" />
+					</query_table>
+				</query_table>
+			</query_table>
+		</query>
+		<form name="Report" id="Report-1433" template="Page" css="container-fluid" view="frame" >
+			<var name="samplePageNumber" type="4" value="0" mandatory="n" />
+			<var name="sampleRecordsPerPage" type="4" value="100" mandatory="n" />
+			<body name="Body" template="Grid" max_records="100" pos="0,0,0,0,f,f" layout="{{-2,-2,-2,-2,-1},{-2,-2,-2,-2}}" generate_path="y" scroll="n" html="n" header_rows="0" footer_rows="0" >
+				<cell type="label" name="Entities Data" template="H3" pos="0,0,1,0,l,c" />
+				<cell type="chart" name="Pie" template="Pie" pos="0,1,4,1,l,c" max_records="20" generate_path="y" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="ID" type="-5" />
+						<var name="active" type="-7" />
+						<var name="ADDRESS" />
+						<var name="bs_allow_final" type="-7" />
+						<var name="bs_allow_public" type="-7" />
+						<var name="code" />
+						<var name="CP" />
+						<var name="description" />
+						<var name="EMAIL" />
+						<var name="name" />
+						<var name="NIF" />
+						<var name="other_town" />
+						<var name="PHONE" />
+						<var name="bs_registry_request_date" type="91" />
+						<var name="bs_registry_resolution_date" type="91" />
+						<var name="shortname" />
+						<var name="version" type="-5" />
+						<var name="WEB" />
+						<var name="CREATIONYEAR" />
+						<var name="id_legal_form" type="-5" />
+						<var name="id_sector" type="-5" />
+						<var name="id_bs_state" type="-5" />
+						<var name="id_town" type="-5" />
+						<var name="PROVINCE_ID" type="-5" />
+						<var name="REGION_ID" type="-5" />
+						<var name="logo" type="-4" />
+						<var name="pamapam_url" />
+						<var name="allow_xes_info" type="-7" />
+						<var name="partner_number" type="3" />
+						<var name="xes_description" />
+						<var name="xes_registry_request_date" type="91" />
+						<var name="xes_registry_resolution_date" type="91" />
+						<var name="id_xes_state" type="-5" />
+						<var name="bank_account_owner" />
+						<var name="bank_account_iban" />
+						<var name="administration_contact" />
+						<var name="xes_collaborator" type="-6" />
+						<var name="id_user" type="-5" />
+						<var name="id_autonomous_community" type="-5" />
+						<var name="transversal" type="-6" />
+						<var name="id_secondary_sector" type="-5" />
+						<var name="social_objective" type="-6" />
+						<var name="evaluate_project" type="-6" />
+						<var name="xes_active" type="-6" />
+						<var name="hosting_policit_accepted" type="-6" />
+						<var name="id_neighbourhood" type="-5" />
+						<var name="facebook" />
+						<var name="instagram" />
+						<var name="twitter" />
+						<var name="is_xes" type="-6" />
+						<var name="latitude" />
+						<var name="longitude" />
+						<var name="free_text_associations" type="-1" />
+						<script ><![CDATA[SELECT * FROM `SYH`.entities]]></script>
+					</form_script>
+					<param name="item" value="NIF" />
+					<param name="width" value="100%" />
+					<param name="title" value="Sample Chart" />
+					<param name="value" value="is_xes" />
+					<param name="height" value="400px" />
+				</cell>
+				<tableview name="sample" template="Table" max_records="100" css="sortable table table-striped table-sm table-hover" pos="0,2,4,2,f,f" layout="{{-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2},{-2,-2}}" generate_path="y" scroll="n" html="n" header_rows="1" footer_rows="0" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="ID" type="-5" />
+						<var name="active" type="-7" />
+						<var name="ADDRESS" />
+						<var name="bs_allow_final" type="-7" />
+						<var name="bs_allow_public" type="-7" />
+						<var name="code" />
+						<var name="CP" />
+						<var name="description" />
+						<var name="EMAIL" />
+						<var name="name" />
+						<var name="NIF" />
+						<var name="other_town" />
+						<var name="PHONE" />
+						<var name="bs_registry_request_date" type="91" />
+						<var name="bs_registry_resolution_date" type="91" />
+						<var name="shortname" />
+						<var name="version" type="-5" />
+						<var name="WEB" />
+						<var name="CREATIONYEAR" />
+						<var name="id_legal_form" type="-5" />
+						<var name="id_sector" type="-5" />
+						<var name="id_bs_state" type="-5" />
+						<var name="id_town" type="-5" />
+						<var name="PROVINCE_ID" type="-5" />
+						<var name="REGION_ID" type="-5" />
+						<var name="logo" type="-4" />
+						<var name="pamapam_url" />
+						<var name="allow_xes_info" type="-7" />
+						<var name="partner_number" type="3" />
+						<var name="xes_description" />
+						<var name="xes_registry_request_date" type="91" />
+						<var name="xes_registry_resolution_date" type="91" />
+						<var name="id_xes_state" type="-5" />
+						<var name="bank_account_owner" />
+						<var name="bank_account_iban" />
+						<var name="administration_contact" />
+						<var name="xes_collaborator" type="-6" />
+						<var name="id_user" type="-5" />
+						<var name="id_autonomous_community" type="-5" />
+						<var name="transversal" type="-6" />
+						<var name="id_secondary_sector" type="-5" />
+						<var name="social_objective" type="-6" />
+						<var name="evaluate_project" type="-6" />
+						<var name="xes_active" type="-6" />
+						<var name="hosting_policit_accepted" type="-6" />
+						<var name="id_neighbourhood" type="-5" />
+						<var name="facebook" />
+						<var name="instagram" />
+						<var name="twitter" />
+						<var name="is_xes" type="-6" />
+						<var name="latitude" />
+						<var name="longitude" />
+						<var name="free_text_associations" type="-1" />
+						<script ><![CDATA[SELECT * FROM `SYH`.entities]]></script>
+					</form_script>
+					<cell type="label" name="ID" pos="0,0,0,0,c,c" />
+					<cell type="label" name="active" pos="1,0,1,0,c,c" />
+					<cell type="label" name="ADDRESS" pos="2,0,2,0,c,c" />
+					<cell type="label" name="bs_allow_final" pos="3,0,3,0,c,c" />
+					<cell type="label" name="bs_allow_public" pos="4,0,4,0,c,c" />
+					<cell type="label" name="code" pos="5,0,5,0,c,c" />
+					<cell type="label" name="CP" pos="6,0,6,0,c,c" />
+					<cell type="label" name="description" pos="7,0,7,0,c,c" />
+					<cell type="label" name="EMAIL" pos="8,0,8,0,c,c" />
+					<cell type="label" name="name" pos="9,0,9,0,c,c" />
+					<cell type="label" name="NIF" pos="10,0,10,0,c,c" />
+					<cell type="label" name="other_town" pos="11,0,11,0,c,c" />
+					<cell type="label" name="PHONE" pos="12,0,12,0,c,c" />
+					<cell type="label" name="bs_registry_request_date" pos="13,0,13,0,c,c" />
+					<cell type="label" name="bs_registry_resolution_date" pos="14,0,14,0,c,c" />
+					<cell type="label" name="${ID}" template="Plain" pos="0,1,0,1,l,c" />
+					<cell type="label" name="${active}" template="Plain" pos="1,1,1,1,l,c" />
+					<cell type="label" name="${ADDRESS}" template="Plain" pos="2,1,2,1,l,c" />
+					<cell type="label" name="${bs_allow_final}" template="Plain" pos="3,1,3,1,l,c" />
+					<cell type="label" name="${bs_allow_public}" template="Plain" pos="4,1,4,1,l,c" />
+					<cell type="label" name="${code}" template="Plain" pos="5,1,5,1,l,c" />
+					<cell type="label" name="${CP}" template="Plain" pos="6,1,6,1,l,c" />
+					<cell type="label" name="${description}" template="Plain" pos="7,1,7,1,l,c" />
+					<cell type="label" name="${EMAIL}" template="Plain" pos="8,1,8,1,l,c" />
+					<cell type="label" name="${name}" template="Plain" pos="9,1,9,1,l,c" />
+					<cell type="label" name="${NIF}" template="Plain" pos="10,1,10,1,l,c" />
+					<cell type="label" name="${other_town}" template="Plain" pos="11,1,11,1,l,c" />
+					<cell type="label" name="${PHONE}" template="Plain" pos="12,1,12,1,l,c" />
+					<cell type="label" name="${bs_registry_request_date}" template="Plain" pos="13,1,13,1,l,c" />
+					<cell type="label" name="${bs_registry_resolution_date}" template="Plain" pos="14,1,14,1,l,c" />
+					<cell type="button" name="More" template="Plain" css="btn btn-sm btn-secondary" pos="15,1,15,1,c,c" ref_id="Report-1433" />
+				</tableview>
+				<cell type="href" name="" disabled="${samplePageNumber&lt;1}" pos="0,3,0,3,l,c" glyph="bi-chevron_double_left" ref_id="Report-1433" >
+					<var name="samplePageNumber" value="0" />
+				</cell>
+				<cell type="href" name="" disabled="${samplePageNumber&lt;1}" pos="1,3,1,3,l,c" glyph="bi-chevron_left" ref_id="Report-1433" >
+					<var name="samplePageNumber" value="${Math.max(0,samplePageNumber-1)}" />
+				</cell>
+				<cell type="label" name="Page ${samplePageNumber+1}" pos="2,3,2,3,l,c" />
+				<cell type="href" name="" disabled="${!sampleHasNextPage}" pos="3,3,3,3,l,c" glyph="bi-chevron_right" ref_id="Report-1433" >
+					<var name="samplePageNumber" value="${( samplePageNumber+1 )}" />
+				</cell>
+			</body>
+		</form>
+	</layout>
+</project>
