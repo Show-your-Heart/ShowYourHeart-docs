@@ -8,7 +8,7 @@ The app is developed under the [HDA architecture paradigm](https://htmx.org/essa
 
 ### Main branch
 
-This branch contains the code devployed in production, its a stable branch and contains all the releases.
+This branch contains the code deployed in production, it's a stable branch and contains all the releases.
 
 ### Iteration branches
 
@@ -24,7 +24,7 @@ We use a fork based workflow, each developer has its own fork from which they ca
 
 ## Good practices in contributions ✨
 
-On top of the fork based workflow we encourage the use of [Conventional Commits specification](https://www.conventionalcommits.org/es/v1.0.0/#especificaci%c3%b3n). We also use[Semantic Versioning](https://semver.org/lang/es/) for our releases.
+On top of the fork based workflow we encourage the use of [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/#specification). We also use[Semantic Versioning](https://semver.org/) for our releases.
    
 - [Brief tutorial by Justin Brooks](https://www.youtube.com/watch?v=OJqUWvmf4gg)
 - [Small intro to Semantic Versioning by Syntax](https://youtu.be/97i9pOa2EyE)
