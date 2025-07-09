@@ -75,6 +75,8 @@ The main principles guiding the tool development are
 - The tools need to be compliant with the regulations that affect them.
 - The tools need to be usable and accessible.
 
+## Documentation
+All Show Your Heart documentation is centralized on https://github.com/Show-your-Heart/ShowYourHeart-docs/wiki
 
 
 
